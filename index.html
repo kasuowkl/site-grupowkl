@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo WKL | Tecnologia e Infraestrutura de TI</title>
+  <meta name="description" content="Grupo WKL — infraestrutura de TI ponta a ponta: servidores e virtualização, segurança de rede, backup e continuidade, redes e Wi-Fi, monitoramento e desenvolvimento de sistemas." />
+  <meta name="theme-color" content="#03080c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #03080c;
+      --bg-2: #071018;
+      --panel: rgba(7, 23, 31, 0.72);
+      --panel-2: rgba(7, 23, 31, 0.52);
+      --panel-border: rgba(140, 217, 194, 0.16);
+      --text: #eef8f4;
+      --muted: #a7beb7;
+      --accent: #8cd9c2;
+      --accent-strong: #4dd0ab;
+      --accent-warm: #f1d59a;
+      --accent-blue: #7eb8e0;
+      --accent-red: #e88a7a;
+      --accent-purple: #b8a0d8;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      --radius: 22px;
+      --radius-lg: 28px;
+      --max: 1220px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(77, 208, 171, 0.10), transparent 30%),
+        radial-gradient(circle at right center, rgba(241, 213, 154, 0.08), transparent 20%),
+        linear-gradient(135deg, #02060a 0%, #071018 46%, #03080d 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    #tech-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 85%);
+    }
+    body::after {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(140, 217, 194, 0.14), transparent 18%),
+        radial-gradient(circle at 80% 15%, rgba(241, 213, 154, 0.08), transparent 14%);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    .wrap { position: relative; z-index: 1; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    .skip-link {
+      position: absolute; left: 16px; top: 16px;
+      transform: translateY(-200%);
+      background: rgba(6, 18, 24, 0.94);
+      border: 1px solid rgba(140, 217, 194, 0.2);
+      padding: 10px 14px; border-radius: 999px;
+      color: var(--text); text-decoration: none; z-index: 10;
+    }
+    .skip-link:focus { transform: translateY(0); outline: none; }
+
+    header {
+      position: sticky; top: 0; z-index: 5;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(3, 8, 12, 0.58);
+      border-bottom: 1px solid rgba(140, 217, 194, 0.10);
+    }
+
+    .nav {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 14px 0; gap: 16px;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--text); min-width: 220px;
+    }
+    .brand-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent-blue));
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Sora", sans-serif; font-weight: 800;
+      font-size: 1.2rem; color: var(--bg);
+    }
+    .brand strong { font-family: "Sora", sans-serif; letter-spacing: -0.02em; font-size: 1.05rem; }
+    .brand span { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+    nav ul {
+      list-style: none; display: flex; flex-wrap: wrap;
+      gap: 6px; align-items: center; justify-content: flex-end;
+    }
+
+    .nav a.link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 12px; border-radius: 999px;
+      color: var(--muted); text-decoration: none; font-size: 0.88rem;
+      border: 1px solid transparent;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+    .nav a.link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(140, 217, 194, 0.28);
+      background: linear-gradient(180deg, rgba(140, 217, 194, 0.16), rgba(140, 217, 194, 0.06));
+      color: var(--text); border-radius: 999px;
+      padding: 11px 18px;
+      font: 800 0.90rem "Manrope", sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      justify-content: center; white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(140, 217, 194, 0.48); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22); }
+    .btn.secondary {
+      border-color: rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text); box-shadow: none;
+    }
+    .btn.secondary:hover { border-color: rgba(255, 255, 255, 0.16); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 999px;
+      background: rgba(140, 217, 194, 0.08);
+      border: 1px solid rgba(140, 217, 194, 0.22);
+      color: var(--accent); font-size: 0.78rem;
+      font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .badge::before {
+      content: ""; width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 8px rgba(77, 208, 171, 0.12);
+      animation: pulse 2.4s infinite;
+    }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 22px; align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .panel .inner { padding: 34px; position: relative; overflow: hidden; }
+    .panel .inner::after {
+      content: ""; position: absolute;
+      width: 260px; height: 260px; right: -90px; top: -90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 208, 171, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+      line-height: 1.06; letter-spacing: -0.04em;
+      max-width: 24ch;
+    }
+    h1 strong { color: var(--accent-warm); font-weight: 900; }
+
+    .lead {
+      margin-top: 14px; max-width: 72ch;
+      color: var(--muted); font-size: 1.02rem; line-height: 1.75;
+    }
+
+    .pill-row { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 8px 12px; border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #d6ebe4; font-size: 0.88rem;
+    }
+
+    .cta-row { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .side {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .side .inner::after { background: radial-gradient(circle, rgba(241, 213, 154, 0.18), transparent 72%); }
+
+    .kpis { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
+    .kpi {
+      padding: 14px; border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .kpi strong {
+      display: block; font-family: "Sora", sans-serif;
+      letter-spacing: -0.02em; margin-bottom: 6px;
+    }
+    .kpi span { color: var(--muted); line-height: 1.6; font-size: 0.92rem; }
+
+    .kpi-number {
+      font-family: "Sora", sans-serif;
+      font-size: 1.8rem; font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent-warm), var(--accent-strong));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section { padding: 32px 0; }
+    .section-head {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      letter-spacing: -0.03em;
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+    }
+    .section-head p { color: var(--muted); max-width: 80ch; line-height: 1.65; }
+
+    .section-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 8px;
+    }
+    .section-divider .icon-circle {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+    .card {
+      background: var(--panel-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius); padding: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(140, 217, 194, 0.18);
+      background: rgba(7, 23, 31, 0.62);
+    }
+    .card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.02rem; letter-spacing: -0.02em;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+    }
+    .card h3 .card-icon {
+      font-size: 1.1rem; width: 32px; height: 32px;
+      border-radius: 10px; display: inline-flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card p { color: var(--muted); line-height: 1.65; font-size: 0.93rem; }
+    .card ul { margin-top: 10px; padding-left: 18px; color: #d6ebe4; }
+    .card li { margin: 6px 0; color: #d6ebe4; font-size: 0.92rem; }
+
+    .card-accent-green { border-left: 3px solid var(--accent-strong); }
+    .card-accent-blue { border-left: 3px solid var(--accent-blue); }
+    .card-accent-warm { border-left: 3px solid var(--accent-warm); }
+    .card-accent-red { border-left: 3px solid var(--accent-red); }
+    .card-accent-purple { border-left: 3px solid var(--accent-purple); }
+
+    .icon-green { background: rgba(77, 208, 171, 0.12); color: var(--accent-strong); }
+    .icon-blue { background: rgba(126, 184, 224, 0.12); color: var(--accent-blue); }
+    .icon-warm { background: rgba(241, 213, 154, 0.12); color: var(--accent-warm); }
+    .icon-red { background: rgba(232, 138, 122, 0.12); color: var(--accent-red); }
+    .icon-purple { background: rgba(184, 160, 216, 0.12); color: var(--accent-purple); }
+
+    .tag {
+      display: inline-block; padding: 4px 10px;
+      border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+      background: rgba(140, 217, 194, 0.08);
+      border: 1px solid rgba(140, 217, 194, 0.15);
+      color: var(--accent); margin: 3px 2px;
+    }
+    .tag.blue { background: rgba(126, 184, 224, 0.08); border-color: rgba(126, 184, 224, 0.15); color: var(--accent-blue); }
+    .tag.warm { background: rgba(241, 213, 154, 0.08); border-color: rgba(241, 213, 154, 0.15); color: var(--accent-warm); }
+    .tag.red { background: rgba(232, 138, 122, 0.08); border-color: rgba(232, 138, 122, 0.15); color: var(--accent-red); }
+    .tag.purple { background: rgba(184, 160, 216, 0.08); border-color: rgba(184, 160, 216, 0.15); color: var(--accent-purple); }
+
+    .timeline {
+      position: relative; padding-left: 32px;
+    }
+    .timeline::before {
+      content: ""; position: absolute; left: 14px; top: 8px; bottom: 8px;
+      width: 2px; background: rgba(140, 217, 194, 0.15);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 18px; padding: 16px 20px;
+      background: var(--panel-2); border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+    .timeline-item::before {
+      content: ""; position: absolute; left: -24px; top: 20px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 4px rgba(77, 208, 171, 0.15);
+    }
+    .timeline-item h4 {
+      font-family: "Sora", sans-serif; font-size: 0.95rem;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .timeline-item p { color: var(--muted); font-size: 0.90rem; line-height: 1.6; }
+
+    .stats-bar {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      padding: 20px; border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 18px;
+    }
+    .stat {
+      flex: 1; min-width: 140px; text-align: center;
+      padding: 10px;
+    }
+    .stat .number {
+      font-family: "Sora", sans-serif; font-size: 2rem;
+      font-weight: 800; letter-spacing: -0.03em;
+    }
+    .stat .label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+    .fine { margin-top: 10px; font-size: 0.90rem; color: var(--muted); line-height: 1.6; }
+
+    footer { padding: 28px 0 42px; color: #9eb4ae; font-size: 0.92rem; }
+    .foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 18px;
+    }
+    .foot a { color: var(--accent); text-decoration: none; font-weight: 900; }
+
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.75; } }
+    @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-20px, 24px, 0) scale(1.08); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .fade-up.d1 { animation-delay: 0.1s; }
+    .fade-up.d2 { animation-delay: 0.2s; }
+    .fade-up.d3 { animation-delay: 0.3s; }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .brand { min-width: auto; }
+      nav ul { justify-content: flex-start; }
+      .stats-bar { flex-direction: column; }
+
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body::after { animation: none; }
+      .badge::before { animation: none; }
+      .fade-up { animation: none; opacity: 1; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      body::before, body::after, #tech-canvas, header { display: none; }
+      .card, .panel, .timeline-item {
+        background: #f8f8f8; border-color: #ddd;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .wrap { z-index: auto; }
+    }
+    .side-title { font-family: "Sora", sans-serif; letter-spacing: -0.03em; font-size: 1.3rem; }
+    .mail-link { color: var(--accent); text-decoration: none; font-weight: 700; word-break: break-all; }
+    .mail-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <canvas id="tech-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <header>
+      <div class="container">
+        <div class="nav" role="navigation" aria-label="Navegação principal">
+          <a class="brand" href="#topo">
+            <div class="brand-icon">WKL</div>
+            <div>
+              <strong>Grupo WKL</strong>
+              <span>Tecnologia &bull; Infraestrutura &bull; Sistemas</span>
+            </div>
+          </a>
+          <nav aria-label="Seções">
+            <ul>
+              <li><a class="link" href="#infraestrutura">Infraestrutura</a></li>
+              <li><a class="link" href="#seguranca">Segurança</a></li>
+              <li><a class="link" href="#backup">Backup</a></li>
+              <li><a class="link" href="#redes">Redes</a></li>
+              <li><a class="link" href="#monitoramento">Monitoramento</a></li>
+              <li><a class="link" href="#sistemas">Sistemas</a></li>
+              <li><a class="link" href="#gestao">Gestão</a></li>
+              <li><a class="btn" href="#contato">Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+
+      <!-- ==================== HERO ==================== -->
+      <section class="hero" id="topo">
+        <div class="container">
+          <div class="hero-grid">
+            <article class="panel fade-up">
+              <div class="inner">
+                <div class="badge">Tecnologia e Infraestrutura de TI</div>
+
+                <h1>Do servidor ao sistema: <strong>TI que sustenta a operação</strong></h1>
+
+                <p class="lead">
+                  O Grupo WKL projeta, implanta e mantém a infraestrutura de tecnologia da empresa —
+                  servidores e virtualização, segurança de rede, backup e continuidade, redes e Wi-Fi,
+                  monitoramento e desenvolvimento de sistemas internos. Um responsável técnico único,
+                  do diagnóstico à sustentação, com tudo documentado.
+                </p>
+
+                <div class="pill-row" aria-label="Áreas de atuação">
+                  <span class="pill">Servidores &amp; Virtualização</span>
+                  <span class="pill">Firewall &amp; VPN</span>
+                  <span class="pill">Active Directory</span>
+                  <span class="pill">Backup &amp; Continuidade</span>
+                  <span class="pill">CFTV &amp; Monitoramento</span>
+                  <span class="pill">Telefonia IP</span>
+                  <span class="pill">Desenvolvimento Web</span>
+                  <span class="pill">Redes corporativas</span>
+                </div>
+
+                <div class="cta-row">
+                  <a class="btn" href="#infraestrutura">Ver serviços</a>
+                  <a class="btn secondary" href="#contato">Falar com a gente</a>
+                </div>
+              </div>
+            </article>
+
+            <aside class="panel side fade-up d1">
+              <div class="inner">
+                <h2 class="side-title">Como trabalhamos</h2>
+                <div class="kpis" aria-label="Etapas de trabalho" style="margin-top:14px;">
+                  <div class="kpi">
+                    <strong>1 &bull; Diagnóstico</strong>
+                    <span>Levantamento do que existe: rede, servidores, sistemas e riscos abertos.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>2 &bull; Projeto</strong>
+                    <span>Desenho da solução com prioridade, custo e janela de parada definidos.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>3 &bull; Implantação</strong>
+                    <span>Execução com plano de retorno — nada entra sem caminho de volta.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>4 &bull; Documentação</strong>
+                    <span>Topologia, inventário e procedimentos entregues junto com a solução.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>5 &bull; Sustentação</strong>
+                    <span>Monitoramento, backup verificado e resposta a incidentes.</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== INFRAESTRUTURA ==================== -->
+      <section class="section" id="infraestrutura">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-green">&#9000;</span>
+                <h2>Servidores e Virtualização</h2>
+              </div>
+              <p>Da máquina física ao serviço no ar: dimensionamento, virtualização, domínio corporativo e a energia que segura tudo isso de pé.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-green fade-up">
+              <h3><span class="card-icon icon-green">&#9000;</span> Servidores físicos</h3>
+              <p>Especificação, instalação e manutenção de servidores de rack e torre, com controle de garantia, discos em RAID e firmware atualizado.</p>
+              <ul>
+                <li>Dimensionamento por carga real</li>
+                <li>RAID, discos e expansão de storage</li>
+                <li>Substituição e descarte planejados</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d1">
+              <h3><span class="card-icon icon-blue">&#9729;</span> Virtualização</h3>
+              <p>Consolidação de cargas em hosts virtualizados, com separação por função e recursos ajustados a cada serviço.</p>
+              <ul>
+                <li>Criação e migração de máquinas virtuais</li>
+                <li>Snapshots e janelas de manutenção</li>
+                <li>Uso de CPU, memória e disco sob controle</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#128274;</span> Active Directory</h3>
+              <p>Domínio corporativo com usuários, grupos e permissões organizados — quem entra, no quê, e até onde.</p>
+              <ul>
+                <li>Estrutura de OUs, grupos e políticas</li>
+                <li>Entrada e saída de colaboradores</li>
+                <li>Compartilhamentos e permissões de pasta</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up">
+              <h3><span class="card-icon icon-warm">&#128187;</span> Sustentação de ERP</h3>
+              <p>Ambiente de ERP e plataformas de processo mantidos no ar: serviços, bancos de dados, atualizações e integrações.</p>
+              <ul>
+                <li>Serviços de aplicação e banco de dados</li>
+                <li>Atualizações e ambiente de homologação</li>
+                <li>Integrações com sistemas internos</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-purple fade-up d1">
+              <h3><span class="card-icon icon-purple">&#9889;</span> Sala de servidores</h3>
+              <p>A infraestrutura que ninguém vê até faltar: energia, climatização e organização física do CPD.</p>
+              <ul>
+                <li>Nobreak, autonomia e proteção elétrica</li>
+                <li>Climatização e controle de temperatura</li>
+                <li>Racks, cabeamento e identificação</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <h3><span class="card-icon icon-blue">&#128421;</span> Parque de estações</h3>
+              <p>Notebooks, desktops e periféricos com inventário vivo, padronização de imagem e manutenção preventiva.</p>
+              <ul>
+                <li>Instalação, imagem e padronização</li>
+                <li>Inventário e controle de patrimônio</li>
+                <li>Manutenção preventiva e corretiva</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SEGURANÇA ==================== -->
+      <section class="section" id="seguranca">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-red">&#128737;</span>
+                <h2>Segurança de Rede</h2>
+              </div>
+              <p>Controle de borda, acesso remoto e segmentação — proteção que continua funcionando quando alguém erra um clique.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-red fade-up">
+              <h3><span class="card-icon icon-red">&#128737;</span> Firewall</h3>
+              <p>Firewall corporativo como porta única de entrada e saída, com regras revisadas e registro do que passa.</p>
+              <ul>
+                <li>Regras, NAT e publicação de serviços</li>
+                <li>Filtro de conteúdo e bloqueio por política</li>
+                <li>Logs e revisão periódica das regras</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d1">
+              <h3><span class="card-icon icon-blue">&#128272;</span> VPN e acesso remoto</h3>
+              <p>Acesso de fora da empresa sem abrir a rede: túnel cifrado, usuário nominal e permissão pelo mínimo necessário.</p>
+              <ul>
+                <li>VPN para equipe e para unidades remotas</li>
+                <li>Acesso a servidores sem expor porta</li>
+                <li>Revogação imediata no desligamento</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#128171;</span> Antivírus e proteção</h3>
+              <p>Proteção de endpoint com console central: o que foi detectado, onde, e o que foi feito a respeito.</p>
+              <ul>
+                <li>Implantação e console de gerenciamento</li>
+                <li>Acompanhamento de detecções</li>
+                <li>Resposta e limpeza de estações</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up">
+              <h3><span class="card-icon icon-warm">&#128208;</span> VLANs e segmentação</h3>
+              <p>Rede dividida por função — administrativo, produção, câmeras e visitantes não conversam entre si sem uma regra que permita.</p>
+              <ul>
+                <li>Projeto de VLANs e endereçamento</li>
+                <li>Isolamento da rede de visitantes</li>
+                <li>Regras entre segmentos no firewall</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1">
+              <h3><span class="card-icon icon-warm">&#127760;</span> Links e conectividade</h3>
+              <p>Contratação e gestão de links de internet, com redundância e troca automática quando um provedor cai.</p>
+              <ul>
+                <li>Link dedicado e link de contingência</li>
+                <li>Failover automático entre operadoras</li>
+                <li>Acompanhamento de qualidade e SLA</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-purple fade-up d2">
+              <h3><span class="card-icon icon-purple">&#128273;</span> Gestão de credenciais</h3>
+              <p>Senhas fora do código e fora do chat: cofre próprio, rotação periódica e um acesso por pessoa.</p>
+              <ul>
+                <li>Padronização dos acessos administrativos</li>
+                <li>Rotação de senhas e trilha de acesso</li>
+                <li>Segregação por sistema e por função</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== BACKUP ==================== -->
+      <section class="section" id="backup">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-warm">&#128230;</span>
+                <h2>Backup e Continuidade</h2>
+              </div>
+              <p>Backup só vale quando restaura. Rotina automatizada, cópia fora do servidor de origem e teste de retorno feito antes da emergência.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-warm fade-up">
+              <h3><span class="card-icon icon-warm">&#128230;</span> Backup de servidores</h3>
+              <p>Cópia automatizada de máquinas virtuais e bancos, com retenção definida e alerta quando um job falha.</p>
+              <ul>
+                <li>Agendamento por criticidade do serviço</li>
+                <li>Retenção diária, semanal e mensal</li>
+                <li>Monitoramento e alerta de falha</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d1">
+              <h3><span class="card-icon icon-green">&#128451;</span> Storage e cópia externa</h3>
+              <p>Destino de backup separado da produção, para que uma falha não leve o original e a cópia juntos.</p>
+              <ul>
+                <li>Storage dedicado a backup</li>
+                <li>Cópia em segundo destino</li>
+                <li>Controle de espaço e de crescimento</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <h3><span class="card-icon icon-blue">&#128194;</span> Configuração de equipamentos</h3>
+              <p>Firewall, switches, controladoras e gravadores também têm backup — é o que encurta a volta depois de uma queima.</p>
+              <ul>
+                <li>Exportação periódica das configurações</li>
+                <li>Versionamento das mudanças</li>
+                <li>Procedimento de restauração escrito</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-red fade-up">
+              <h3><span class="card-icon icon-red">&#9851;</span> Teste de restauração</h3>
+              <p>Restauração exercitada de verdade, em ambiente separado, antes de precisar dela numa emergência.</p>
+              <ul>
+                <li>Restauração de arquivo e de máquina inteira</li>
+                <li>Tempo de retorno medido e registrado</li>
+                <li>Ajuste da rotina quando o teste reprova</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-purple fade-up d1">
+              <h3><span class="card-icon icon-purple">&#128260;</span> Plano de continuidade</h3>
+              <p>O que fazer quando cai: ordem de prioridade dos sistemas, responsáveis e passo a passo do retorno.</p>
+              <ul>
+                <li>Prioridade por impacto na operação</li>
+                <li>Procedimento de contingência documentado</li>
+                <li>Revisão após cada incidente real</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#128274;</span> Retenção e descarte</h3>
+              <p>Guardar o que precisa ser guardado, pelo tempo certo — e descartar mídia velha sem deixar dado para trás.</p>
+              <ul>
+                <li>Política de retenção por tipo de dado</li>
+                <li>Arquivamento de histórico</li>
+                <li>Descarte seguro de discos e mídias</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== REDES ==================== -->
+      <section class="section" id="redes">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-blue">&#128246;</span>
+                <h2>Redes, Wi-Fi e Telefonia</h2>
+              </div>
+              <p>Do ponto de rede na parede ao ramal que toca: projeto, instalação e gestão da rede que a empresa usa o dia inteiro.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-blue fade-up">
+              <h3><span class="card-icon icon-blue">&#128246;</span> Wi-Fi corporativo</h3>
+              <p>Cobertura planejada por área, com controladora central, roaming entre pontos e rede de visitantes isolada.</p>
+              <ul>
+                <li>Levantamento de cobertura e canais</li>
+                <li>Controladora e gestão centralizada</li>
+                <li>Rede de visitantes separada</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d1">
+              <h3><span class="card-icon icon-green">&#128268;</span> Rede cabeada</h3>
+              <p>Cabeamento estruturado, switches gerenciáveis e topologia desenhada — com etiqueta em cada ponta.</p>
+              <ul>
+                <li>Projeto e execução de cabeamento</li>
+                <li>Switches gerenciáveis e VLANs</li>
+                <li>Documentação de racks e pontos</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d2">
+              <h3><span class="card-icon icon-warm">&#128466;</span> Telefonia IP</h3>
+              <p>Central telefônica sobre a rede de dados: ramais, filas de atendimento e gravação quando necessário.</p>
+              <ul>
+                <li>Central IP, ramais e URA</li>
+                <li>Integração com operadora e troncos</li>
+                <li>Ramal remoto para quem trabalha fora</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-purple fade-up">
+              <h3><span class="card-icon icon-purple">&#128752;</span> Conectividade em campo</h3>
+              <p>Unidades e frentes de trabalho sem infraestrutura no local, conectadas por rádio, 4G/5G ou satélite.</p>
+              <ul>
+                <li>Enlace para locais remotos</li>
+                <li>Rede provisória para frentes de obra</li>
+                <li>Integração da unidade à rede da matriz</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d1">
+              <h3><span class="card-icon icon-blue">&#128736;</span> Implantação de unidades</h3>
+              <p>Abertura de escritório ou unidade nova entregue pronta: rede, telefonia, servidores de apoio e acessos criados.</p>
+              <ul>
+                <li>Projeto de infraestrutura da unidade</li>
+                <li>Instalação e configuração no local</li>
+                <li>Integração com a matriz e testes finais</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#128200;</span> Desempenho da rede</h3>
+              <p>Diagnóstico de lentidão com medição, não com achismo: onde o gargalo está e quanto custa resolver.</p>
+              <ul>
+                <li>Medição de banda e latência</li>
+                <li>Priorização de tráfego crítico</li>
+                <li>Correção de laços e falhas físicas</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== MONITORAMENTO ==================== -->
+      <section class="section" id="monitoramento">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-purple">&#128247;</span>
+                <h2>CFTV e Monitoramento</h2>
+              </div>
+              <p>Enxergar antes de parar: câmeras, sensores e monitoramento ativo dos serviços que a operação depende.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-purple fade-up">
+              <h3><span class="card-icon icon-purple">&#128247;</span> CFTV</h3>
+              <p>Projeto e manutenção de circuito fechado de TV, com gravação dimensionada pelo tempo de guarda exigido.</p>
+              <ul>
+                <li>Posicionamento e instalação de câmeras</li>
+                <li>Gravadores, storage e tempo de retenção</li>
+                <li>Acesso remoto controlado às imagens</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d1">
+              <h3><span class="card-icon icon-green">&#128200;</span> Monitoramento de rede</h3>
+              <p>Servidores, links e serviços observados o tempo todo, com alerta antes do usuário abrir chamado.</p>
+              <ul>
+                <li>Disponibilidade de servidores e serviços</li>
+                <li>Alerta por e-mail e mensagem</li>
+                <li>Histórico para análise de causa</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d2">
+              <h3><span class="card-icon icon-warm">&#128666;</span> Rastreamento de frota</h3>
+              <p>Acompanhamento de veículos e equipamentos, com relatório de percurso e apoio à gestão da operação.</p>
+              <ul>
+                <li>Instalação e gestão dos rastreadores</li>
+                <li>Relatórios de posição e percurso</li>
+                <li>Integração com a rotina da operação</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up">
+              <h3><span class="card-icon icon-blue">&#128250;</span> TV corporativa e painéis</h3>
+              <p>Painéis e televisores exibindo indicadores, avisos e imagens ao vivo nos pontos onde a informação é necessária.</p>
+              <ul>
+                <li>Painel de indicadores em tela</li>
+                <li>Mural digital de avisos internos</li>
+                <li>Videowall de monitoramento</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-red fade-up d1">
+              <h3><span class="card-icon icon-red">&#128680;</span> Resposta a incidentes</h3>
+              <p>Quando algo para, o roteiro já existe: identificar, conter, restabelecer e registrar para não repetir.</p>
+              <ul>
+                <li>Atendimento em parada de serviço</li>
+                <li>Contenção e restabelecimento</li>
+                <li>Registro da causa e da correção</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#127968;</span> Automação predial</h3>
+              <p>Iluminação, tomadas, climatização e sensores integrados e controlados por aplicativo ou por rotina.</p>
+              <ul>
+                <li>Dispositivos inteligentes e cenários</li>
+                <li>Sensores e acionamento programado</li>
+                <li>Integração com a rede da empresa</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SISTEMAS ==================== -->
+      <section class="section" id="sistemas">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-blue">&#128187;</span>
+                <h2>Sistemas e Desenvolvimento</h2>
+              </div>
+              <p>Software feito para o processo que a empresa já tem — e não o contrário. Portais internos, integrações e automações.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-green fade-up">
+              <h3><span class="card-icon icon-green">&#127760;</span> Portais internos</h3>
+              <p>Portal único de acesso aos sistemas da empresa, com login próprio, perfis de permissão e módulos por área.</p>
+              <ul>
+                <li>Chamados, agenda, aprovações e finanças</li>
+                <li>Perfis de acesso por setor</li>
+                <li>Relatórios e exportação de dados</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1">
+              <h3><span class="card-icon icon-warm">&#128172;</span> Integração com WhatsApp</h3>
+              <p>Avisos, cobranças e confirmações saindo direto do sistema para o WhatsApp de quem precisa receber.</p>
+              <ul>
+                <li>Envio automático a partir do sistema</li>
+                <li>Fila de mensagens e histórico</li>
+                <li>Atendimento e respostas registradas</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <h3><span class="card-icon icon-blue">&#128295;</span> Publicação segura</h3>
+              <p>Sistema interno acessível de fora com HTTPS e sem abrir porta no firewall, via proxy reverso e túnel.</p>
+              <ul>
+                <li>Proxy reverso e certificado</li>
+                <li>Túnel de saída, sem porta exposta</li>
+                <li>Camada de autenticação na borda</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-purple fade-up">
+              <h3><span class="card-icon icon-purple">&#127915;</span> Service desk</h3>
+              <p>Chamados com fila, responsável e prazo — o que virou histórico do que quebra e do que se repete.</p>
+              <ul>
+                <li>Abertura por portal e por mensagem</li>
+                <li>Fila, prioridade e responsável</li>
+                <li>Base de conhecimento e reincidência</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1">
+              <h3><span class="card-icon icon-warm">&#9993;</span> E-mail corporativo</h3>
+              <p>Domínio próprio, contas por colaborador e os registros de DNS certos para a mensagem não cair em spam.</p>
+              <ul>
+                <li>Domínio, DNS e registros de e-mail</li>
+                <li>Criação e migração de contas</li>
+                <li>Assinatura padrão e listas internas</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d2">
+              <h3><span class="card-icon icon-green">&#128196;</span> Sites e páginas</h3>
+              <p>Site institucional, páginas de apresentação e materiais internos publicados com identidade da empresa.</p>
+              <ul>
+                <li>Site institucional responsivo</li>
+                <li>Páginas de projeto e apresentações</li>
+                <li>Hospedagem, domínio e publicação</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== GESTÃO E DOCUMENTAÇÃO ==================== -->
+      <section class="section" id="gestao">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-warm">&#128221;</span>
+                <h2>Documentação e Gestão de TI</h2>
+              </div>
+              <p>O que não está documentado não existe no dia em que a pessoa que sabia está de férias.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-blue fade-up">
+              <h3><span class="card-icon icon-blue">&#128202;</span> Inventário</h3>
+              <p>Todo equipamento com registro: o que é, onde está, com quem, desde quando e até quando tem garantia.</p>
+              <ul>
+                <li>Patrimônio de TI atualizado</li>
+                <li>Licenças e contratos de software</li>
+                <li>Termos de responsabilidade</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-green fade-up d1">
+              <h3><span class="card-icon icon-green">&#128506;</span> Topologia e diagramas</h3>
+              <p>Desenho de como a rede é de verdade — links, segmentos, servidores e por onde o dado passa.</p>
+              <ul>
+                <li>Diagrama lógico e físico da rede</li>
+                <li>Mapa de servidores e serviços</li>
+                <li>Atualização a cada mudança</li>
+              </ul>
+            </article>
+
+            <article class="card card-accent-warm fade-up d2">
+              <h3><span class="card-icon icon-warm">&#128221;</span> Procedimentos</h3>
+              <p>Rotina escrita para o que se repete, para que a execução não dependa de quem está de plantão.</p>
+              <ul>
+                <li>Procedimentos operacionais</li>
+                <li>Comunicados de parada e mudança</li>
+                <li>Passagem de conhecimento à equipe</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TECNOLOGIAS ==================== -->
+      <section class="section" id="tecnologias">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-purple">&#128295;</span>
+                <h2>Tecnologias e Ferramentas</h2>
+              </div>
+              <p>Ferramentas de mercado, escolhidas pelo problema que resolvem — sem prender o cliente a um fornecedor único.</p>
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <article class="card fade-up">
+              <h3 style="justify-content:center;">Servidores</h3>
+              <div style="text-align:center;">
+                <span class="tag">Windows Server</span>
+                <span class="tag">Linux</span>
+                <span class="tag">Active Directory</span>
+                <span class="tag">SQL Server</span>
+              </div>
+            </article>
+
+            <article class="card fade-up d1">
+              <h3 style="justify-content:center;">Virtualização</h3>
+              <div style="text-align:center;">
+                <span class="tag blue">Proxmox</span>
+                <span class="tag blue">VMware</span>
+                <span class="tag blue">Hyper-V</span>
+                <span class="tag blue">Contêineres</span>
+              </div>
+            </article>
+
+            <article class="card fade-up d2">
+              <h3 style="justify-content:center;">Rede e Segurança</h3>
+              <div style="text-align:center;">
+                <span class="tag red">pfSense</span>
+                <span class="tag red">VPN</span>
+                <span class="tag red">VLANs</span>
+                <span class="tag red">Antivírus corporativo</span>
+              </div>
+            </article>
+
+            <article class="card fade-up">
+              <h3 style="justify-content:center;">Wi-Fi e Switching</h3>
+              <div style="text-align:center;">
+                <span class="tag warm">UniFi</span>
+                <span class="tag warm">Switches gerenciáveis</span>
+                <span class="tag warm">Cabeamento estruturado</span>
+              </div>
+            </article>
+
+            <article class="card fade-up d1">
+              <h3 style="justify-content:center;">Backup</h3>
+              <div style="text-align:center;">
+                <span class="tag">Veeam</span>
+                <span class="tag">NAS / TrueNAS</span>
+                <span class="tag">Rotina automatizada</span>
+              </div>
+            </article>
+
+            <article class="card fade-up d2">
+              <h3 style="justify-content:center;">Monitoramento</h3>
+              <div style="text-align:center;">
+                <span class="tag purple">Monitor de rede</span>
+                <span class="tag purple">CFTV IP</span>
+                <span class="tag purple">Alertas automáticos</span>
+              </div>
+            </article>
+
+            <article class="card fade-up">
+              <h3 style="justify-content:center;">Desenvolvimento</h3>
+              <div style="text-align:center;">
+                <span class="tag blue">Node.js</span>
+                <span class="tag blue">HTML / CSS / JS</span>
+                <span class="tag blue">APIs REST</span>
+                <span class="tag blue">Git</span>
+              </div>
+            </article>
+
+            <article class="card fade-up d1">
+              <h3 style="justify-content:center;">Publicação</h3>
+              <div style="text-align:center;">
+                <span class="tag warm">Nginx</span>
+                <span class="tag warm">Proxy reverso</span>
+                <span class="tag warm">Túnel e HTTPS</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CONTATO ==================== -->
+      <section class="section" id="contato">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-green">&#9993;</span>
+                <h2>Contato</h2>
+              </div>
+              <p>Conte o problema que a empresa está tendo — o retorno vem com o caminho, o prazo e o custo.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel fade-up">
+              <div class="inner">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1.15rem;margin-bottom:14px;">
+                  <span class="card-icon icon-green">&#128222;</span> Fale com o Grupo WKL
+                </h3>
+                <p class="lead" style="margin-top:0;">
+                  Atendimento a empresas que precisam de um responsável técnico de verdade para a TI:
+                  projeto novo, ambiente herdado sem documentação ou operação já rodando que precisa parar de cair.
+                </p>
+                <div class="cta-row">
+                  <a class="btn" href="https://wa.me/5592984629701" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                  <a class="btn secondary" href="https://portal.grupowkl.com.br/portal" target="_blank" rel="noopener noreferrer">Portal do cliente</a>
+                </div>
+                <div class="kpis" style="margin-top:20px;">
+                  <div class="kpi">
+                    <strong>Propostas e orçamentos</strong>
+                    <span><a class="mail-link" href="mailto:propostas@grupowkl.com.br">propostas@grupowkl.com.br</a></span>
+                  </div>
+                  <div class="kpi">
+                    <strong>Serviços e atendimento</strong>
+                    <span><a class="mail-link" href="mailto:servicos@grupowkl.com.br">servicos@grupowkl.com.br</a></span>
+                  </div>
+                </div>
+                <p class="fine">grupowkl.com.br</p>
+              </div>
+            </article>
+
+            <article class="panel side fade-up d1">
+              <div class="inner">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1.15rem;margin-bottom:14px;">
+                  <span class="card-icon icon-warm">&#128218;</span> Como atendemos
+                </h3>
+                <ul style="padding-left:18px;color:#d6ebe4;line-height:1.9;">
+                  <li>Projeto fechado, com escopo e entrega definidos</li>
+                  <li>Sustentação mensal da infraestrutura</li>
+                  <li>Diagnóstico e regularização de ambiente herdado</li>
+                  <li>Desenvolvimento de sistema interno sob medida</li>
+                  <li>Atendimento presencial e remoto</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <span>&copy; 2026 Grupo WKL &bull; Tecnologia e Infraestrutura de TI</span>
+          <span><a href="#topo">Voltar ao topo</a></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Background animado com particulas
+    const canvas = document.getElementById("tech-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(initial = false) {
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.size = initial ? Math.random() * 2.0 + 0.7 : Math.random() * 1.6 + 0.6;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
+        if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(140, 217, 194, 0.85)";
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const total = Math.max(44, Math.floor((window.innerWidth * window.innerHeight) / 22000));
+      for (let i = 0; i < total; i += 1) particles.push(new Particle());
+    }
+
+    function connectParticles() {
+      const maxDistance = 170;
+      for (let a = 0; a < particles.length; a += 1) {
+        for (let b = a + 1; b < particles.length; b += 1) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDistance) {
+            const opacity = 1 - dist / maxDistance;
+            ctx.strokeStyle = `rgba(241, 213, 154, ${opacity * 0.24})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateBackground() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) { p.update(); p.draw(); }
+      connectParticles();
+      window.requestAnimationFrame(animateBackground);
+    }
+
+    resizeCanvas();
+    initParticles();
+    animateBackground();
+    window.addEventListener("resize", () => { resizeCanvas(); initParticles(); }, { passive: true });
+
+    // Scroll reveal para elementos com .fade-up
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = "running";
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".fade-up").forEach((el) => {
+      el.style.animationPlayState = "paused";
+      observer.observe(el);
+    });
+
+    // Smooth scroll para links internos
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (e) => {
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
