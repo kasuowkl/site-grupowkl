@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Publica as páginas do site no SRV-NGINX (Casa): backup → envia como .novo → confere MD5 → mv atômico.
-# Uso: HOST=user@<SRV-NGINX> ./deploy.sh
+# Publica as páginas do site no servidor: backup → envia como .novo → confere MD5 → mv atômico.
+# Uso: HOST=user@<servidor> DEST=<pasta do site no servidor> ./deploy.sh
+# (valores reais na documentação interna — não neste repositório público)
 set -euo pipefail
 cd "$(dirname "$0")"
 
-HOST="${HOST:?defina HOST=user@<SRV-NGINX>}"
-DEST=/var/www/html/site-wkl
+HOST="${HOST:?defina HOST=user@<servidor>}"
+DEST="${DEST:?defina DEST=<pasta do site no servidor>}"
 ARQUIVOS=(index.html desenvolvimento.html)
 CARIMBO=$(date +%Y%m%d-%H%M%S)
 

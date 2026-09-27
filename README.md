@@ -19,19 +19,13 @@ Cada página é autossuficiente — CSS e JS embutidos, sem dependência além d
 
 ## Onde roda
 
-| Item | Valor |
-|------|-------|
-| Servidor | SRV-NGINX (ambiente **Casa**) |
-| Caminho | `/var/www/html/site-wkl/` |
-| Nginx | server block `site-wkl`, **porta 8080** |
-| Externo | rota do túnel Cloudflare `site.grupowkl.com.br` → `http://localhost:8080` |
-
-A porta 8080 é proposital: a 80 é do `portal-casa` (`default_server`) e não deve ser tocada.
+Servidor próprio com Nginx, publicado pela internet por um túnel da Cloudflare (sem porta aberta
+no firewall). Os detalhes de servidor ficam na documentação interna, não neste repositório público.
 
 ## Deploy
 
 ```bash
-HOST=user@<SRV-NGINX> ./deploy.sh
+HOST=user@<servidor> DEST=<pasta do site> ./deploy.sh
 ```
 
 O `deploy.sh` faz backup no servidor (`~/backups-site/<data>`), envia como `.novo`, **confere o MD5**
