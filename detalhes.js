@@ -31,8 +31,10 @@
   function botao(rotulo, url, secundario) {
     const a = el("a", secundario ? "btn secondary" : "btn", rotulo);
     a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
+    if (/^https?:/.test(url)) { // externo abre em outra aba; página do próprio site, na mesma
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
     return a;
   }
 

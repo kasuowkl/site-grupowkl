@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="detalhes.css?v=20260927b" />
   <style>
     :root {
       --bg: #03080c;
@@ -552,7 +553,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-green fade-up">
+            <article class="card card-accent-green fade-up" data-detalhe="servidores-fisicos">
               <h3><span class="card-icon icon-green">&#9000;</span> Servidores físicos</h3>
               <p>Especificação, instalação e manutenção de servidores de rack e torre, com controle de garantia, discos em RAID e firmware atualizado.</p>
               <ul>
@@ -562,7 +563,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d1">
+            <article class="card card-accent-blue fade-up d1" data-detalhe="virtualizacao">
               <h3><span class="card-icon icon-blue">&#9729;</span> Virtualização</h3>
               <p>Consolidação de cargas em hosts virtualizados, com separação por função e recursos ajustados a cada serviço.</p>
               <ul>
@@ -572,7 +573,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="active-directory">
               <h3><span class="card-icon icon-green">&#128274;</span> Active Directory</h3>
               <p>Domínio corporativo com usuários, grupos e permissões organizados — quem entra, no quê, e até onde.</p>
               <ul>
@@ -582,7 +583,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up">
+            <article class="card card-accent-warm fade-up" data-detalhe="sustentacao-erp">
               <h3><span class="card-icon icon-warm">&#128187;</span> Sustentação de ERP</h3>
               <p>Ambiente de ERP e plataformas de processo mantidos no ar: serviços, bancos de dados, atualizações e integrações.</p>
               <ul>
@@ -592,7 +593,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-purple fade-up d1">
+            <article class="card card-accent-purple fade-up d1" data-detalhe="sala-servidores">
               <h3><span class="card-icon icon-purple">&#9889;</span> Sala de servidores</h3>
               <p>A infraestrutura que ninguém vê até faltar: energia, climatização e organização física do CPD.</p>
               <ul>
@@ -602,7 +603,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="parque-estacoes">
               <h3><span class="card-icon icon-blue">&#128421;</span> Parque de estações</h3>
               <p>Notebooks, desktops e periféricos com inventário vivo, padronização de imagem e manutenção preventiva.</p>
               <ul>
@@ -629,7 +630,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-red fade-up">
+            <article class="card card-accent-red fade-up" data-detalhe="firewall">
               <h3><span class="card-icon icon-red">&#128737;</span> Firewall</h3>
               <p>Firewall corporativo como porta única de entrada e saída, com regras revisadas e registro do que passa.</p>
               <ul>
@@ -639,7 +640,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d1">
+            <article class="card card-accent-blue fade-up d1" data-detalhe="vpn">
               <h3><span class="card-icon icon-blue">&#128272;</span> VPN e acesso remoto</h3>
               <p>Acesso de fora da empresa sem abrir a rede: túnel cifrado, usuário nominal e permissão pelo mínimo necessário.</p>
               <ul>
@@ -649,7 +650,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="antivirus">
               <h3><span class="card-icon icon-green">&#128171;</span> Antivírus e proteção</h3>
               <p>Proteção de endpoint com console central: o que foi detectado, onde, e o que foi feito a respeito.</p>
               <ul>
@@ -659,7 +660,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up">
+            <article class="card card-accent-warm fade-up" data-detalhe="vlans">
               <h3><span class="card-icon icon-warm">&#128208;</span> VLANs e segmentação</h3>
               <p>Rede dividida por função — administrativo, produção, câmeras e visitantes não conversam entre si sem uma regra que permita.</p>
               <ul>
@@ -669,7 +670,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d1">
+            <article class="card card-accent-warm fade-up d1" data-detalhe="links">
               <h3><span class="card-icon icon-warm">&#127760;</span> Links e conectividade</h3>
               <p>Contratação e gestão de links de internet, com redundância e troca automática quando um provedor cai.</p>
               <ul>
@@ -679,7 +680,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-purple fade-up d2">
+            <article class="card card-accent-purple fade-up d2" data-detalhe="credenciais">
               <h3><span class="card-icon icon-purple">&#128273;</span> Gestão de credenciais</h3>
               <p>Senhas fora do código e fora do chat: cofre próprio, rotação periódica e um acesso por pessoa.</p>
               <ul>
@@ -706,7 +707,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-warm fade-up">
+            <article class="card card-accent-warm fade-up" data-detalhe="backup-servidores">
               <h3><span class="card-icon icon-warm">&#128230;</span> Backup de servidores</h3>
               <p>Cópia automatizada de máquinas virtuais e bancos, com retenção definida e alerta quando um job falha.</p>
               <ul>
@@ -716,7 +717,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d1">
+            <article class="card card-accent-green fade-up d1" data-detalhe="storage-externo">
               <h3><span class="card-icon icon-green">&#128451;</span> Storage e cópia externa</h3>
               <p>Destino de backup separado da produção, para que uma falha não leve o original e a cópia juntos.</p>
               <ul>
@@ -726,7 +727,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="backup-config">
               <h3><span class="card-icon icon-blue">&#128194;</span> Configuração de equipamentos</h3>
               <p>Firewall, switches, controladoras e gravadores também têm backup — é o que encurta a volta depois de uma queima.</p>
               <ul>
@@ -736,7 +737,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-red fade-up">
+            <article class="card card-accent-red fade-up" data-detalhe="teste-restauracao">
               <h3><span class="card-icon icon-red">&#9851;</span> Teste de restauração</h3>
               <p>Restauração exercitada de verdade, em ambiente separado, antes de precisar dela numa emergência.</p>
               <ul>
@@ -746,7 +747,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-purple fade-up d1">
+            <article class="card card-accent-purple fade-up d1" data-detalhe="continuidade">
               <h3><span class="card-icon icon-purple">&#128260;</span> Plano de continuidade</h3>
               <p>O que fazer quando cai: ordem de prioridade dos sistemas, responsáveis e passo a passo do retorno.</p>
               <ul>
@@ -756,7 +757,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="retencao">
               <h3><span class="card-icon icon-green">&#128274;</span> Retenção e descarte</h3>
               <p>Guardar o que precisa ser guardado, pelo tempo certo — e descartar mídia velha sem deixar dado para trás.</p>
               <ul>
@@ -783,7 +784,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-blue fade-up">
+            <article class="card card-accent-blue fade-up" data-detalhe="wifi">
               <h3><span class="card-icon icon-blue">&#128246;</span> Wi-Fi corporativo</h3>
               <p>Cobertura planejada por área, com controladora central, roaming entre pontos e rede de visitantes isolada.</p>
               <ul>
@@ -793,7 +794,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d1">
+            <article class="card card-accent-green fade-up d1" data-detalhe="rede-cabeada">
               <h3><span class="card-icon icon-green">&#128268;</span> Rede cabeada</h3>
               <p>Cabeamento estruturado, switches gerenciáveis e topologia desenhada — com etiqueta em cada ponta.</p>
               <ul>
@@ -803,7 +804,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d2">
+            <article class="card card-accent-warm fade-up d2" data-detalhe="telefonia">
               <h3><span class="card-icon icon-warm">&#128466;</span> Telefonia IP</h3>
               <p>Central telefônica sobre a rede de dados: ramais, filas de atendimento e gravação quando necessário.</p>
               <ul>
@@ -813,7 +814,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-purple fade-up">
+            <article class="card card-accent-purple fade-up" data-detalhe="campo">
               <h3><span class="card-icon icon-purple">&#128752;</span> Conectividade em campo</h3>
               <p>Unidades e frentes de trabalho sem infraestrutura no local, conectadas por rádio, 4G/5G ou satélite.</p>
               <ul>
@@ -823,7 +824,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d1">
+            <article class="card card-accent-blue fade-up d1" data-detalhe="unidades">
               <h3><span class="card-icon icon-blue">&#128736;</span> Implantação de unidades</h3>
               <p>Abertura de escritório ou unidade nova entregue pronta: rede, telefonia, servidores de apoio e acessos criados.</p>
               <ul>
@@ -833,7 +834,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="desempenho">
               <h3><span class="card-icon icon-green">&#128200;</span> Desempenho da rede</h3>
               <p>Diagnóstico de lentidão com medição, não com achismo: onde o gargalo está e quanto custa resolver.</p>
               <ul>
@@ -860,7 +861,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-purple fade-up">
+            <article class="card card-accent-purple fade-up" data-detalhe="cftv">
               <h3><span class="card-icon icon-purple">&#128247;</span> CFTV</h3>
               <p>Projeto e manutenção de circuito fechado de TV, com gravação dimensionada pelo tempo de guarda exigido.</p>
               <ul>
@@ -870,7 +871,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d1">
+            <article class="card card-accent-green fade-up d1" data-detalhe="monitoramento-rede">
               <h3><span class="card-icon icon-green">&#128200;</span> Monitoramento de rede</h3>
               <p>Servidores, links e serviços observados o tempo todo, com alerta antes do usuário abrir chamado.</p>
               <ul>
@@ -880,7 +881,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d2">
+            <article class="card card-accent-warm fade-up d2" data-detalhe="frota">
               <h3><span class="card-icon icon-warm">&#128666;</span> Rastreamento de frota</h3>
               <p>Acompanhamento de veículos e equipamentos, com relatório de percurso e apoio à gestão da operação.</p>
               <ul>
@@ -890,7 +891,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up">
+            <article class="card card-accent-blue fade-up" data-detalhe="tv-corporativa">
               <h3><span class="card-icon icon-blue">&#128250;</span> TV corporativa e painéis</h3>
               <p>Painéis e televisores exibindo indicadores, avisos e imagens ao vivo nos pontos onde a informação é necessária.</p>
               <ul>
@@ -900,7 +901,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-red fade-up d1">
+            <article class="card card-accent-red fade-up d1" data-detalhe="incidentes">
               <h3><span class="card-icon icon-red">&#128680;</span> Resposta a incidentes</h3>
               <p>Quando algo para, o roteiro já existe: identificar, conter, restabelecer e registrar para não repetir.</p>
               <ul>
@@ -910,7 +911,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="automacao">
               <h3><span class="card-icon icon-green">&#127968;</span> Automação predial</h3>
               <p>Iluminação, tomadas, climatização e sensores integrados e controlados por aplicativo ou por rotina.</p>
               <ul>
@@ -937,7 +938,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-green fade-up">
+            <article class="card card-accent-green fade-up" data-detalhe="portais">
               <h3><span class="card-icon icon-green">&#127760;</span> Portais internos</h3>
               <p>Portal único de acesso aos sistemas da empresa, com login próprio, perfis de permissão e módulos por área.</p>
               <ul>
@@ -947,7 +948,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d1">
+            <article class="card card-accent-warm fade-up d1" data-detalhe="integracao-whatsapp">
               <h3><span class="card-icon icon-warm">&#128172;</span> Integração com WhatsApp</h3>
               <p>Avisos, cobranças e confirmações saindo direto do sistema para o WhatsApp de quem precisa receber.</p>
               <ul>
@@ -957,7 +958,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="publicacao">
               <h3><span class="card-icon icon-blue">&#128295;</span> Publicação segura</h3>
               <p>Sistema interno acessível de fora com HTTPS e sem abrir porta no firewall, via proxy reverso e túnel.</p>
               <ul>
@@ -967,7 +968,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-purple fade-up">
+            <article class="card card-accent-purple fade-up" data-detalhe="service-desk">
               <h3><span class="card-icon icon-purple">&#127915;</span> Service desk</h3>
               <p>Chamados com fila, responsável e prazo — o que virou histórico do que quebra e do que se repete.</p>
               <ul>
@@ -977,7 +978,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d1">
+            <article class="card card-accent-warm fade-up d1" data-detalhe="email">
               <h3><span class="card-icon icon-warm">&#9993;</span> E-mail corporativo</h3>
               <p>Domínio próprio, contas por colaborador e os registros de DNS certos para a mensagem não cair em spam.</p>
               <ul>
@@ -987,7 +988,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d2">
+            <article class="card card-accent-green fade-up d2" data-detalhe="sites">
               <h3><span class="card-icon icon-green">&#128196;</span> Sites e páginas</h3>
               <p>Site institucional, páginas de apresentação e materiais internos publicados com identidade da empresa.</p>
               <ul>
@@ -1018,7 +1019,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-blue fade-up">
+            <article class="card card-accent-blue fade-up" data-detalhe="inventario-gestao">
               <h3><span class="card-icon icon-blue">&#128202;</span> Inventário</h3>
               <p>Todo equipamento com registro: o que é, onde está, com quem, desde quando e até quando tem garantia.</p>
               <ul>
@@ -1028,7 +1029,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-green fade-up d1">
+            <article class="card card-accent-green fade-up d1" data-detalhe="topologia">
               <h3><span class="card-icon icon-green">&#128506;</span> Topologia e diagramas</h3>
               <p>Desenho de como a rede é de verdade — links, segmentos, servidores e por onde o dado passa.</p>
               <ul>
@@ -1038,7 +1039,7 @@
               </ul>
             </article>
 
-            <article class="card card-accent-warm fade-up d2">
+            <article class="card card-accent-warm fade-up d2" data-detalhe="procedimentos">
               <h3><span class="card-icon icon-warm">&#128221;</span> Procedimentos</h3>
               <p>Rotina escrita para o que se repete, para que a execução não dependa de quem está de plantão.</p>
               <ul>
@@ -1325,5 +1326,7 @@
       });
     });
   </script>
+  <script src="detalhes-servicos.js?v=20260927b"></script>
+  <script src="detalhes.js?v=20260927b"></script>
 </body>
 </html>

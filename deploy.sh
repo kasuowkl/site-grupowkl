@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 
 HOST="${HOST:?defina HOST=user@<servidor>}"
 DEST="${DEST:?defina DEST=<pasta do site no servidor>}"
-ARQUIVOS=(index.html desenvolvimento.html detalhes.css detalhes.js detalhes-desenvolvimento.js)
+ARQUIVOS=(index.html desenvolvimento.html detalhes.css detalhes.js detalhes-desenvolvimento.js detalhes-servicos.js)
 CARIMBO=$(date +%Y%m%d-%H%M%S)
 
 echo "== backup no servidor"
