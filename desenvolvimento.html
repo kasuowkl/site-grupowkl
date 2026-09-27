@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="detalhes.css?v=20260927a" />
   <style>
     :root {
       --bg: #03080c;
@@ -116,15 +117,21 @@
     }
     .brand strong { font-family: "Sora", sans-serif; letter-spacing: -0.02em; font-size: 1.05rem; }
     .brand span { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+    @media (min-width: 981px) { .brand span { white-space: nowrap; } }
+    @media (min-width: 981px) and (max-width: 1240px) {
+      header .brand span { display: none; } header .brand { min-width: auto; }
+      header .nav a.link { padding: 8px 6px; font-size: 0.8rem; }
+      header .nav .btn { padding: 9px 14px; }
+    }
 
     nav ul {
       list-style: none; display: flex; flex-wrap: wrap;
-      gap: 6px; align-items: center; justify-content: flex-end;
+      gap: 2px; align-items: center; justify-content: flex-end;
     }
 
     .nav a.link {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 12px; border-radius: 999px;
+      padding: 8px 10px; border-radius: 999px;
       color: var(--muted); text-decoration: none; font-size: 0.88rem;
       border: 1px solid transparent;
       transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
@@ -564,7 +571,7 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-green fade-up">
+            <article class="card card-accent-green fade-up" data-detalhe="portal">
               <span class="status ar">No ar</span>
               <h3><span class="card-icon icon-green">&#127760;</span> Portal WKL</h3>
               <p>Portal interno com login único, perfis de acesso por setor e os sistemas da empresa num lugar só.</p>
@@ -578,7 +585,7 @@
               <a class="card-link" href="https://portal.grupowkl.com.br/portal" target="_blank" rel="noopener noreferrer">Abrir o portal &rarr;</a>
             </article>
 
-            <article class="card card-accent-warm fade-up d1">
+            <article class="card card-accent-warm fade-up d1" data-detalhe="nalevada">
               <span class="status ar">No ar</span>
               <h3><span class="card-icon icon-warm">&#129345;</span> Na Levada</h3>
               <p>Treinador de bateria em forma de jogo: lê a bateria eletrônica pelo cabo MIDI e avalia tempo e força de cada batida, com ritmos brasileiros.</p>
@@ -592,19 +599,19 @@
               <a class="card-link" href="https://nalevada.grupowkl.com.br" target="_blank" rel="noopener noreferrer">Conhecer o Na Levada &rarr;</a>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="whatsapp">
               <span class="status ar">No ar</span>
               <h3><span class="card-icon icon-blue">&#128172;</span> Central de WhatsApp</h3>
-              <p>Mensagens saindo dos sistemas direto para o WhatsApp de quem precisa receber: avisos, confirmações e atendimento.</p>
+              <p>O WhatsApp como porta de entrada do portal: quem tem cadastro responde aprovações e manda comandos pela própria conversa.</p>
               <ul>
-                <li>Envio automático a partir do portal</li>
-                <li>Fila e histórico de mensagens</li>
+                <li>Aprovações respondidas pelo WhatsApp</li>
+                <li>Avisos saindo do portal para o celular</li>
               </ul>
-              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">Baileys</span></div>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">Baileys</span><span class="tag blue">Socket.IO</span></div>
               <p class="aprendi"><strong>Aprendi:</strong> integração tem duas camadas — o serviço que fala com o mundo e o sistema que só pede.</p>
             </article>
 
-            <article class="card card-accent-purple fade-up">
+            <article class="card card-accent-purple fade-up" data-detalhe="explorador">
               <span class="status ar">No ar</span>
               <h3><span class="card-icon icon-purple">&#128269;</span> Explorador de Banco de Dados</h3>
               <p>Ferramenta para navegar num banco de ERP grande: tabelas, relações entre elas e uma IA que explica o que cada uma guarda.</p>
@@ -612,15 +619,15 @@
               <p class="aprendi"><strong>Aprendi:</strong> ler um banco que outra pessoa desenhou — e que ferramenta de estudo também é sistema.</p>
             </article>
 
-            <article class="card card-accent-green fade-up d1">
+            <article class="card card-accent-green fade-up d1" data-detalhe="monitor">
               <span class="status ar">No ar</span>
               <h3><span class="card-icon icon-green">&#128225;</span> Monitor de Rede</h3>
               <p>Acompanha equipamentos da rede por SNMP e mostra quem está de pé e quem caiu.</p>
-              <div class="stack"><span class="tag blue">Node.js</span><span class="tag purple">SNMP</span></div>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag purple">SNMP</span><span class="tag blue">SQLite</span></div>
               <p class="aprendi"><strong>Aprendi:</strong> serviço que reinicia sozinho em loop precisa de alarme, não de paciência.</p>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="plantas">
               <span class="status teste">Em teste</span>
               <h3><span class="card-icon icon-blue">&#128208;</span> Análise de Plantas</h3>
               <p>Assistente de engenharia: lê plantas em PDF, DWG, DXF e IFC, levanta o quantitativo de material e confere um formato contra o outro. É copiloto — quem assina é o engenheiro.</p>
@@ -633,7 +640,7 @@
               <p class="aprendi"><strong>Aprendi:</strong> o sistema nunca diz &ldquo;correto&rdquo; — diz o que conferiu e onde ficou em dúvida.</p>
             </article>
 
-            <article class="card card-accent-warm fade-up">
+            <article class="card card-accent-warm fade-up" data-detalhe="inventario">
               <span class="status teste">Em teste</span>
               <h3><span class="card-icon icon-warm">&#128421;</span> Ferramentas de TI &mdash; Inventário</h3>
               <p>Um coletor roda na máquina e manda a ficha do equipamento para o portal; a descoberta de rede lista o que está ligado e o que não se identifica.</p>
@@ -658,35 +665,35 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-warm fade-up">
+            <article class="card card-accent-warm fade-up" data-detalhe="bim">
               <span class="status obra">Em construção</span>
               <h3><span class="card-icon icon-warm">&#127959;</span> Análise de Plantas BIM</h3>
               <p>Irmão do Análise de Plantas, só para modelos IFC: lê o modelo 3D e organiza o quantitativo por peça, material e família.</p>
               <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag warm">IFC</span></div>
             </article>
 
-            <article class="card card-accent-purple fade-up d1">
+            <article class="card card-accent-purple fade-up d1" data-detalhe="fluxo">
               <span class="status obra">Em construção</span>
               <h3><span class="card-icon icon-purple">&#129513;</span> FluxoModular</h3>
               <p>Modelador visual de sistemas: desenhar telas, processos e blocos, e ver como tela, rota e tabela se ligam.</p>
               <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag blue">JavaScript</span></div>
             </article>
 
-            <article class="card card-accent-blue fade-up d2">
+            <article class="card card-accent-blue fade-up d2" data-detalhe="entrega">
               <span class="status obra">Em construção</span>
               <h3><span class="card-icon icon-blue">&#128230;</span> Entrega Segura</h3>
               <p>Entregas com cadeia de custódia digital: empresa, entregador e cliente, cada passo registrado.</p>
               <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
             </article>
 
-            <article class="card card-accent-green fade-up">
+            <article class="card card-accent-green fade-up" data-detalhe="laboratorio">
               <span class="status obra">Laboratório</span>
               <h3><span class="card-icon icon-green">&#128300;</span> Portais de laboratório</h3>
               <p>Cópias do portal usadas para testar módulos novos e integrações antes de irem para o portal de verdade.</p>
               <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
             </article>
 
-            <article class="card card-accent-warm fade-up d1">
+            <article class="card card-accent-warm fade-up d1" data-detalhe="metodo">
               <span class="status ar">Público</span>
               <h3><span class="card-icon icon-warm">&#129517;</span> Método Norte</h3>
               <p>A documentação padrão que uso para a IA desenvolver com consistência — sem inventar tabela, sem duplicar código, sem misturar projetos. Aberta, licença MIT.</p>
@@ -752,7 +759,7 @@
           </div>
 
           <div class="grid-2">
-            <article class="card card-accent-purple fade-up">
+            <article class="card card-accent-purple fade-up" data-detalhe="cleitim">
               <span class="status ideia">Ideia</span>
               <h3><span class="card-icon icon-purple">&#129302;</span> Cleitim</h3>
               <p>Uma IA que roda no próprio computador, com personalidade própria, e que pede ajuda a uma IA maior quando a pergunta passa do que ela sabe.</p>
@@ -884,5 +891,7 @@
       });
     });
   </script>
+  <script src="detalhes-desenvolvimento.js?v=20260927a"></script>
+  <script src="detalhes.js?v=20260927a"></script>
 </body>
 </html>

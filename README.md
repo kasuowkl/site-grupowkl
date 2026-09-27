@@ -16,6 +16,11 @@ Cada página é autossuficiente — CSS e JS embutidos, sem dependência além d
 |--------|---------|
 | `index.html` | A landpage dos serviços |
 | `desenvolvimento.html` | **Desenvolvimento — em aprendizagem** (27/09/2026): vitrine dos sistemas (no ar · em construção · laboratório · ideias). Tom de aprendizado, sem prometer domínio. Ligada pelo menu e pela seção Sistemas |
+| `detalhes.js` + `detalhes.css` | Modal de detalhes: cartão com `data-detalhe="<id>"` abre um modal com o texto de `window.DETALHES[id]` e o botão "Falar sobre isso" (WhatsApp com o assunto) |
+| `detalhes-desenvolvimento.js` | Os textos dos modais da página Desenvolvimento |
+
+> ⚠️ A Cloudflare guarda `.css` e `.js` por **4 horas**. Mudou um deles? **Suba o `?v=`** na página que o
+> referencia, senão o visitante continua vendo a versão antiga.
 
 ## Onde roda
 

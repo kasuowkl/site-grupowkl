@@ -7,11 +7,11 @@ cd "$(dirname "$0")"
 
 HOST="${HOST:?defina HOST=user@<servidor>}"
 DEST="${DEST:?defina DEST=<pasta do site no servidor>}"
-ARQUIVOS=(index.html desenvolvimento.html)
+ARQUIVOS=(index.html desenvolvimento.html detalhes.css detalhes.js detalhes-desenvolvimento.js)
 CARIMBO=$(date +%Y%m%d-%H%M%S)
 
 echo "== backup no servidor"
-ssh "$HOST" "mkdir -p \$HOME/backups-site/$CARIMBO && cp -p $DEST/*.html \$HOME/backups-site/$CARIMBO/ && ls \$HOME/backups-site/$CARIMBO"
+ssh "$HOST" "mkdir -p \$HOME/backups-site/$CARIMBO && cp -p $DEST/*.html \$HOME/backups-site/$CARIMBO/ && (cp -p $DEST/*.css $DEST/*.js \$HOME/backups-site/$CARIMBO/ 2>/dev/null || true); ls \$HOME/backups-site/$CARIMBO"
 
 echo "== envio como .novo"
 for f in "${ARQUIVOS[@]}"; do scp "$f" "$HOST:$DEST/$f.novo"; done
@@ -29,4 +29,4 @@ done
 echo "== troca atômica"
 for f in "${ARQUIVOS[@]}"; do ssh "$HOST" "mv $DEST/$f.novo $DEST/$f"; done
 echo "✓ publicado"
-echo "rollback: ssh $HOST 'cp -p \$HOME/backups-site/$CARIMBO/*.html $DEST/'  (desenvolvimento.html novo: apagar à mão se não existia)"
+echo "rollback: ssh $HOST 'cp -p \$HOME/backups-site/$CARIMBO/* $DEST/'  (arquivo que não existia antes do deploy: apagar à mão)"
