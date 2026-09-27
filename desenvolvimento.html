@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo WKL | Desenvolvimento em aprendizagem</title>
+  <meta name="description" content="Desenvolvimento no Grupo WKL, em aprendizagem: os sistemas que estão sendo construídos — no ar, em teste, em construção e ideias." />
+  <meta name="theme-color" content="#03080c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #03080c;
+      --bg-2: #071018;
+      --panel: rgba(7, 23, 31, 0.72);
+      --panel-2: rgba(7, 23, 31, 0.52);
+      --panel-border: rgba(140, 217, 194, 0.16);
+      --text: #eef8f4;
+      --muted: #a7beb7;
+      --accent: #8cd9c2;
+      --accent-strong: #4dd0ab;
+      --accent-warm: #f1d59a;
+      --accent-blue: #7eb8e0;
+      --accent-red: #e88a7a;
+      --accent-purple: #b8a0d8;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      --radius: 22px;
+      --radius-lg: 28px;
+      --max: 1220px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(77, 208, 171, 0.10), transparent 30%),
+        radial-gradient(circle at right center, rgba(241, 213, 154, 0.08), transparent 20%),
+        linear-gradient(135deg, #02060a 0%, #071018 46%, #03080d 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    #tech-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 85%);
+    }
+    body::after {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(140, 217, 194, 0.14), transparent 18%),
+        radial-gradient(circle at 80% 15%, rgba(241, 213, 154, 0.08), transparent 14%);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    .wrap { position: relative; z-index: 1; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    .skip-link {
+      position: absolute; left: 16px; top: 16px;
+      transform: translateY(-200%);
+      background: rgba(6, 18, 24, 0.94);
+      border: 1px solid rgba(140, 217, 194, 0.2);
+      padding: 10px 14px; border-radius: 999px;
+      color: var(--text); text-decoration: none; z-index: 10;
+    }
+    .skip-link:focus { transform: translateY(0); outline: none; }
+
+    header {
+      position: sticky; top: 0; z-index: 5;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(3, 8, 12, 0.58);
+      border-bottom: 1px solid rgba(140, 217, 194, 0.10);
+    }
+
+    .nav {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 14px 0; gap: 16px;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--text); min-width: 220px;
+    }
+    .brand-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent-blue));
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Sora", sans-serif; font-weight: 800;
+      font-size: 1.2rem; color: var(--bg);
+    }
+    .brand strong { font-family: "Sora", sans-serif; letter-spacing: -0.02em; font-size: 1.05rem; }
+    .brand span { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+    nav ul {
+      list-style: none; display: flex; flex-wrap: wrap;
+      gap: 6px; align-items: center; justify-content: flex-end;
+    }
+
+    .nav a.link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 12px; border-radius: 999px;
+      color: var(--muted); text-decoration: none; font-size: 0.88rem;
+      border: 1px solid transparent;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+    .nav a.link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(140, 217, 194, 0.28);
+      background: linear-gradient(180deg, rgba(140, 217, 194, 0.16), rgba(140, 217, 194, 0.06));
+      color: var(--text); border-radius: 999px;
+      padding: 11px 18px;
+      font: 800 0.90rem "Manrope", sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      justify-content: center; white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(140, 217, 194, 0.48); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22); }
+    .btn.secondary {
+      border-color: rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text); box-shadow: none;
+    }
+    .btn.secondary:hover { border-color: rgba(255, 255, 255, 0.16); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 999px;
+      background: rgba(140, 217, 194, 0.08);
+      border: 1px solid rgba(140, 217, 194, 0.22);
+      color: var(--accent); font-size: 0.78rem;
+      font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .badge::before {
+      content: ""; width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 8px rgba(77, 208, 171, 0.12);
+      animation: pulse 2.4s infinite;
+    }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 22px; align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .panel .inner { padding: 34px; position: relative; overflow: hidden; }
+    .panel .inner::after {
+      content: ""; position: absolute;
+      width: 260px; height: 260px; right: -90px; top: -90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 208, 171, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+      line-height: 1.06; letter-spacing: -0.04em;
+      max-width: 24ch;
+    }
+    h1 strong { color: var(--accent-warm); font-weight: 900; }
+
+    .lead {
+      margin-top: 14px; max-width: 72ch;
+      color: var(--muted); font-size: 1.02rem; line-height: 1.75;
+    }
+
+    .pill-row { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 8px 12px; border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #d6ebe4; font-size: 0.88rem;
+    }
+
+    .cta-row { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .side {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .side .inner::after { background: radial-gradient(circle, rgba(241, 213, 154, 0.18), transparent 72%); }
+
+    .kpis { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
+    .kpi {
+      padding: 14px; border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .kpi strong {
+      display: block; font-family: "Sora", sans-serif;
+      letter-spacing: -0.02em; margin-bottom: 6px;
+    }
+    .kpi span { color: var(--muted); line-height: 1.6; font-size: 0.92rem; }
+
+    .kpi-number {
+      font-family: "Sora", sans-serif;
+      font-size: 1.8rem; font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent-warm), var(--accent-strong));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section { padding: 32px 0; }
+    .section-head {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      letter-spacing: -0.03em;
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+    }
+    .section-head p { color: var(--muted); max-width: 80ch; line-height: 1.65; }
+
+    .section-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 8px;
+    }
+    .section-divider .icon-circle {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+    .card {
+      background: var(--panel-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius); padding: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(140, 217, 194, 0.18);
+      background: rgba(7, 23, 31, 0.62);
+    }
+    .card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.02rem; letter-spacing: -0.02em;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+    }
+    .card h3 .card-icon {
+      font-size: 1.1rem; width: 32px; height: 32px;
+      border-radius: 10px; display: inline-flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card p { color: var(--muted); line-height: 1.65; font-size: 0.93rem; }
+    .card ul { margin-top: 10px; padding-left: 18px; color: #d6ebe4; }
+    .card li { margin: 6px 0; color: #d6ebe4; font-size: 0.92rem; }
+
+    .card-accent-green { border-left: 3px solid var(--accent-strong); }
+    .card-accent-blue { border-left: 3px solid var(--accent-blue); }
+    .card-accent-warm { border-left: 3px solid var(--accent-warm); }
+    .card-accent-red { border-left: 3px solid var(--accent-red); }
+    .card-accent-purple { border-left: 3px solid var(--accent-purple); }
+
+    .icon-green { background: rgba(77, 208, 171, 0.12); color: var(--accent-strong); }
+    .icon-blue { background: rgba(126, 184, 224, 0.12); color: var(--accent-blue); }
+    .icon-warm { background: rgba(241, 213, 154, 0.12); color: var(--accent-warm); }
+    .icon-red { background: rgba(232, 138, 122, 0.12); color: var(--accent-red); }
+    .icon-purple { background: rgba(184, 160, 216, 0.12); color: var(--accent-purple); }
+
+    .tag {
+      display: inline-block; padding: 4px 10px;
+      border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+      background: rgba(140, 217, 194, 0.08);
+      border: 1px solid rgba(140, 217, 194, 0.15);
+      color: var(--accent); margin: 3px 2px;
+    }
+    .tag.blue { background: rgba(126, 184, 224, 0.08); border-color: rgba(126, 184, 224, 0.15); color: var(--accent-blue); }
+    .tag.warm { background: rgba(241, 213, 154, 0.08); border-color: rgba(241, 213, 154, 0.15); color: var(--accent-warm); }
+    .tag.red { background: rgba(232, 138, 122, 0.08); border-color: rgba(232, 138, 122, 0.15); color: var(--accent-red); }
+    .tag.purple { background: rgba(184, 160, 216, 0.08); border-color: rgba(184, 160, 216, 0.15); color: var(--accent-purple); }
+
+    .timeline {
+      position: relative; padding-left: 32px;
+    }
+    .timeline::before {
+      content: ""; position: absolute; left: 14px; top: 8px; bottom: 8px;
+      width: 2px; background: rgba(140, 217, 194, 0.15);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 18px; padding: 16px 20px;
+      background: var(--panel-2); border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+    .timeline-item::before {
+      content: ""; position: absolute; left: -24px; top: 20px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 4px rgba(77, 208, 171, 0.15);
+    }
+    .timeline-item h4 {
+      font-family: "Sora", sans-serif; font-size: 0.95rem;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .timeline-item p { color: var(--muted); font-size: 0.90rem; line-height: 1.6; }
+
+    .stats-bar {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      padding: 20px; border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 18px;
+    }
+    .stat {
+      flex: 1; min-width: 140px; text-align: center;
+      padding: 10px;
+    }
+    .stat .number {
+      font-family: "Sora", sans-serif; font-size: 2rem;
+      font-weight: 800; letter-spacing: -0.03em;
+    }
+    .stat .label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+    .fine { margin-top: 10px; font-size: 0.90rem; color: var(--muted); line-height: 1.6; }
+
+    footer { padding: 28px 0 42px; color: #9eb4ae; font-size: 0.92rem; }
+    .foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 18px;
+    }
+    .foot a { color: var(--accent); text-decoration: none; font-weight: 900; }
+
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.75; } }
+    @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-20px, 24px, 0) scale(1.08); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .fade-up.d1 { animation-delay: 0.1s; }
+    .fade-up.d2 { animation-delay: 0.2s; }
+    .fade-up.d3 { animation-delay: 0.3s; }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .brand { min-width: auto; }
+      nav ul { justify-content: flex-start; }
+      .stats-bar { flex-direction: column; }
+
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body::after { animation: none; }
+      .badge::before { animation: none; }
+      .fade-up { animation: none; opacity: 1; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      body::before, body::after, #tech-canvas, header { display: none; }
+      .card, .panel, .timeline-item {
+        background: #f8f8f8; border-color: #ddd;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .wrap { z-index: auto; }
+    }
+    .side-title { font-family: "Sora", sans-serif; letter-spacing: -0.03em; font-size: 1.3rem; }
+    .mail-link { color: var(--accent); text-decoration: none; font-weight: 700; word-break: break-all; }
+    .mail-link:hover { text-decoration: underline; }
+
+    /* ===== Página Desenvolvimento (em aprendizagem) ===== */
+    .status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .status.ar { color: var(--accent-strong); background: rgba(77, 208, 171, 0.10); border: 1px solid rgba(77, 208, 171, 0.25); }
+    .status.teste { color: var(--accent-blue); background: rgba(126, 184, 224, 0.10); border: 1px solid rgba(126, 184, 224, 0.25); }
+    .status.obra { color: var(--accent-warm); background: rgba(241, 213, 154, 0.10); border: 1px solid rgba(241, 213, 154, 0.25); }
+    .status.ideia { color: var(--accent-purple); background: rgba(184, 160, 216, 0.10); border: 1px solid rgba(184, 160, 216, 0.25); }
+    .card .stack { margin-top: 12px; }
+    .card .aprendi {
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.10);
+      color: #cfe3dc; font-size: 0.86rem; line-height: 1.6;
+    }
+    .card .aprendi strong { color: var(--accent-warm); font-weight: 800; }
+    .card-link {
+      display: inline-flex; margin-top: 12px; gap: 6px;
+      color: var(--accent); font-weight: 800; font-size: 0.88rem; text-decoration: none;
+    }
+    .card-link:hover { text-decoration: underline; }
+    .aviso {
+      margin-top: 16px; padding: 14px 16px; border-radius: 16px;
+      background: rgba(241, 213, 154, 0.06);
+      border: 1px solid rgba(241, 213, 154, 0.18);
+      color: #e9dcc0; font-size: 0.92rem; line-height: 1.65;
+    }
+    .nav a.link.atual { color: var(--text); background: rgba(140, 217, 194, 0.08); border-color: rgba(140, 217, 194, 0.18); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <canvas id="tech-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <header>
+      <div class="container">
+        <div class="nav" role="navigation" aria-label="Navegação principal">
+          <a class="brand" href="index.html">
+            <div class="brand-icon">WKL</div>
+            <div>
+              <strong>Grupo WKL</strong>
+              <span>Tecnologia &bull; Infraestrutura &bull; Sistemas</span>
+            </div>
+          </a>
+          <nav aria-label="Seções">
+            <ul>
+              <li><a class="link" href="index.html">Início</a></li>
+              <li><a class="link" href="#no-ar">No ar</a></li>
+              <li><a class="link" href="#construcao">Em construção</a></li>
+              <li><a class="link" href="#laboratorio">Laboratório</a></li>
+              <li><a class="link" href="#ideias">Ideias</a></li>
+              <li><a class="btn" href="index.html#contato">Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+
+      <!-- ==================== ABERTURA ==================== -->
+      <section class="hero" id="topo">
+        <div class="container">
+          <div class="hero-grid">
+            <article class="panel fade-up">
+              <div class="inner">
+                <div class="badge">Desenvolvimento &bull; em aprendizagem</div>
+
+                <h1>O que estou <strong>aprendendo construindo</strong></h1>
+
+                <p class="lead">
+                  Desenvolvimento de sistemas é a área mais nova do Grupo WKL — e ainda estou aprendendo.
+                  Em vez de esperar dominar o assunto para mostrar, esta página reúne os sistemas que
+                  estão sendo feitos de verdade: alguns já rodam no dia a dia, outros estão em teste,
+                  e outros ainda são ideia.
+                </p>
+
+                <div class="pill-row" aria-label="Como os sistemas são feitos">
+                  <span class="pill">HTML, CSS e JavaScript</span>
+                  <span class="pill">Node.js + Express</span>
+                  <span class="pill">SQL Server</span>
+                  <span class="pill">Feito com IA</span>
+                  <span class="pill">Tudo documentado</span>
+                </div>
+
+                <div class="cta-row">
+                  <a class="btn" href="#no-ar">Ver os sistemas</a>
+                  <a class="btn secondary" href="index.html">Voltar ao site</a>
+                </div>
+              </div>
+            </article>
+
+            <aside class="panel side fade-up d1">
+              <div class="inner">
+                <h2 class="side-title">Como estou aprendendo</h2>
+                <div class="kpis" style="margin-top:14px;">
+                  <div class="kpi">
+                    <strong>Com IA, lado a lado</strong>
+                    <span>Os sistemas são escritos em coautoria com IA (Claude, da Anthropic). Eu decido o quê e o porquê, testo na tela e corrijo o rumo.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>Problema real primeiro</strong>
+                    <span>Cada sistema nasceu de uma necessidade do trabalho ou pessoal, não de um exercício.</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>Erro vira regra</strong>
+                    <span>O que deu errado fica escrito numa documentação padrão, para não se repetir no próximo sistema.</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== NO AR ==================== -->
+      <section class="section" id="no-ar">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-green">&#9989;</span>
+                <h2>No ar</h2>
+              </div>
+              <p>Sistemas que já rodam e são usados. Continuam evoluindo — e continuam me ensinando.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-green fade-up">
+              <span class="status ar">No ar</span>
+              <h3><span class="card-icon icon-green">&#127760;</span> Portal WKL</h3>
+              <p>Portal interno com login único, perfis de acesso por setor e os sistemas da empresa num lugar só.</p>
+              <ul>
+                <li>Chamados, agendas, aprovações e finanças</li>
+                <li>Projetos e tarefas, patrimônio e inventário</li>
+                <li>Relatórios com período e exportação</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag blue">JavaScript</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> permissão por perfil, e que tela sem login é furo — mesmo quando &ldquo;ninguém sabe o endereço&rdquo;.</p>
+              <a class="card-link" href="https://portal.grupowkl.com.br/portal" target="_blank" rel="noopener noreferrer">Abrir o portal &rarr;</a>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1">
+              <span class="status ar">No ar</span>
+              <h3><span class="card-icon icon-warm">&#129345;</span> Na Levada</h3>
+              <p>Treinador de bateria em forma de jogo: lê a bateria eletrônica pelo cabo MIDI e avalia tempo e força de cada batida, com ritmos brasileiros.</p>
+              <ul>
+                <li>Levadas, exercícios e músicas importadas</li>
+                <li>Turmas, planos de estudo e relatórios para instrutores</li>
+                <li>Estúdio para montar e editar levadas</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Web MIDI</span><span class="tag blue">Web Audio</span><span class="tag blue">Canvas</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> áudio, imagem e toque andam em relógios diferentes — sincronizar os três é medir, não chutar.</p>
+              <a class="card-link" href="https://nalevada.grupowkl.com.br" target="_blank" rel="noopener noreferrer">Conhecer o Na Levada &rarr;</a>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <span class="status ar">No ar</span>
+              <h3><span class="card-icon icon-blue">&#128172;</span> Central de WhatsApp</h3>
+              <p>Mensagens saindo dos sistemas direto para o WhatsApp de quem precisa receber: avisos, confirmações e atendimento.</p>
+              <ul>
+                <li>Envio automático a partir do portal</li>
+                <li>Fila e histórico de mensagens</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">Baileys</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> integração tem duas camadas — o serviço que fala com o mundo e o sistema que só pede.</p>
+            </article>
+
+            <article class="card card-accent-purple fade-up">
+              <span class="status ar">No ar</span>
+              <h3><span class="card-icon icon-purple">&#128269;</span> Explorador de Banco de Dados</h3>
+              <p>Ferramenta para navegar num banco de ERP grande: tabelas, relações entre elas e uma IA que explica o que cada uma guarda.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag purple">IA</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> ler um banco que outra pessoa desenhou — e que ferramenta de estudo também é sistema.</p>
+            </article>
+
+            <article class="card card-accent-green fade-up d1">
+              <span class="status ar">No ar</span>
+              <h3><span class="card-icon icon-green">&#128225;</span> Monitor de Rede</h3>
+              <p>Acompanha equipamentos da rede por SNMP e mostra quem está de pé e quem caiu.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag purple">SNMP</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> serviço que reinicia sozinho em loop precisa de alarme, não de paciência.</p>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <span class="status teste">Em teste</span>
+              <h3><span class="card-icon icon-blue">&#128208;</span> Análise de Plantas</h3>
+              <p>Assistente de engenharia: lê plantas em PDF, DWG, DXF e IFC, levanta o quantitativo de material e confere um formato contra o outro. É copiloto — quem assina é o engenheiro.</p>
+              <ul>
+                <li>Quantitativo de aço com a origem de cada número</li>
+                <li>Mesma prancha em formatos diferentes, conferida célula a célula</li>
+                <li>Chat com IA por projeto, com o custo na tela</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag purple">IA</span><span class="tag warm">IFC / DXF</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> o sistema nunca diz &ldquo;correto&rdquo; — diz o que conferiu e onde ficou em dúvida.</p>
+            </article>
+
+            <article class="card card-accent-warm fade-up">
+              <span class="status teste">Em teste</span>
+              <h3><span class="card-icon icon-warm">&#128421;</span> Ferramentas de TI &mdash; Inventário</h3>
+              <p>Um coletor roda na máquina e manda a ficha do equipamento para o portal; a descoberta de rede lista o que está ligado e o que não se identifica.</p>
+              <div class="stack"><span class="tag blue">PowerShell</span><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> o que roda na máquina do usuário envia sozinho — a tela só recebe.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== EM CONSTRUÇÃO ==================== -->
+      <section class="section" id="construcao">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-warm">&#128679;</span>
+                <h2>Em construção</h2>
+              </div>
+              <p>Sistemas começados, com partes funcionando, que ainda não estão prontos para uso diário.</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card card-accent-warm fade-up">
+              <span class="status obra">Em construção</span>
+              <h3><span class="card-icon icon-warm">&#127959;</span> Análise de Plantas BIM</h3>
+              <p>Irmão do Análise de Plantas, só para modelos IFC: lê o modelo 3D e organiza o quantitativo por peça, material e família.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag warm">IFC</span></div>
+            </article>
+
+            <article class="card card-accent-purple fade-up d1">
+              <span class="status obra">Em construção</span>
+              <h3><span class="card-icon icon-purple">&#129513;</span> FluxoModular</h3>
+              <p>Modelador visual de sistemas: desenhar telas, processos e blocos, e ver como tela, rota e tabela se ligam.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag blue">JavaScript</span></div>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2">
+              <span class="status obra">Em construção</span>
+              <h3><span class="card-icon icon-blue">&#128230;</span> Entrega Segura</h3>
+              <p>Entregas com cadeia de custódia digital: empresa, entregador e cliente, cada passo registrado.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
+            </article>
+
+            <article class="card card-accent-green fade-up">
+              <span class="status obra">Laboratório</span>
+              <h3><span class="card-icon icon-green">&#128300;</span> Portais de laboratório</h3>
+              <p>Cópias do portal usadas para testar módulos novos e integrações antes de irem para o portal de verdade.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1">
+              <span class="status ar">Público</span>
+              <h3><span class="card-icon icon-warm">&#129517;</span> Método Norte</h3>
+              <p>A documentação padrão que uso para a IA desenvolver com consistência — sem inventar tabela, sem duplicar código, sem misturar projetos. Aberta, licença MIT.</p>
+              <div class="stack"><span class="tag purple">Documentação</span><span class="tag purple">IA</span></div>
+              <a class="card-link" href="https://github.com/kasuowkl/metodo-norte-kit" target="_blank" rel="noopener noreferrer">Ver no GitHub &rarr;</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== LABORATÓRIO ==================== -->
+      <section class="section" id="laboratorio">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-blue">&#129514;</span>
+                <h2>Laboratório</h2>
+              </div>
+              <p>Estudos, exemplos e testes — o caderno de exercícios de onde os sistemas saíram.</p>
+            </div>
+          </div>
+
+          <article class="panel fade-up">
+            <div class="inner">
+              <div>
+                <span class="tag blue">HTML5</span>
+                <span class="tag blue">JavaScript</span>
+                <span class="tag blue">CSS / Layout</span>
+                <span class="tag blue">Node.js</span>
+                <span class="tag blue">SQL Server</span>
+                <span class="tag">Fluig</span>
+                <span class="tag">XML / NF-e</span>
+                <span class="tag purple">Monitoramento de rede</span>
+                <span class="tag purple">Web MIDI / Web Audio</span>
+                <span class="tag warm">Git e GitHub</span>
+                <span class="tag warm">Desenvolvimento com IA</span>
+              </div>
+              <p class="lead">
+                Formulários, validações, busca de CEP, geradores de estilo, testes de conexão com banco,
+                monitores de porta e exemplos de Fluig: pequenos exercícios que viraram as peças dos
+                sistemas acima.
+              </p>
+              <div class="cta-row">
+                <a class="btn" href="https://github.com/kasuowkl" target="_blank" rel="noopener noreferrer">Meu GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==================== IDEIAS ==================== -->
+      <section class="section" id="ideias">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-purple">&#128161;</span>
+                <h2>Ideias</h2>
+              </div>
+              <p>Registradas, ainda sem código.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="card card-accent-purple fade-up">
+              <span class="status ideia">Ideia</span>
+              <h3><span class="card-icon icon-purple">&#129302;</span> Cleitim</h3>
+              <p>Uma IA que roda no próprio computador, com personalidade própria, e que pede ajuda a uma IA maior quando a pergunta passa do que ela sabe.</p>
+            </article>
+          </div>
+
+          <p class="aviso">
+            &#9888;&#65039; Esta é uma área de aprendizado. Os sistemas aqui mostram o que está sendo construído,
+            não um catálogo de produtos prontos. Quer conversar sobre algum deles?
+            <a class="mail-link" style="word-break:normal;white-space:nowrap;" href="index.html#contato">Fale com a gente</a>.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <span>&copy; 2026 Grupo WKL &bull; Desenvolvimento em aprendizagem</span>
+          <span><a href="index.html">Voltar ao site</a> &nbsp;&bull;&nbsp; <a href="#topo">Topo</a></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Background animado com particulas
+    const canvas = document.getElementById("tech-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(initial = false) {
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.size = initial ? Math.random() * 2.0 + 0.7 : Math.random() * 1.6 + 0.6;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
+        if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(140, 217, 194, 0.85)";
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const total = Math.max(44, Math.floor((window.innerWidth * window.innerHeight) / 22000));
+      for (let i = 0; i < total; i += 1) particles.push(new Particle());
+    }
+
+    function connectParticles() {
+      const maxDistance = 170;
+      for (let a = 0; a < particles.length; a += 1) {
+        for (let b = a + 1; b < particles.length; b += 1) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDistance) {
+            const opacity = 1 - dist / maxDistance;
+            ctx.strokeStyle = `rgba(241, 213, 154, ${opacity * 0.24})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateBackground() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) { p.update(); p.draw(); }
+      connectParticles();
+      window.requestAnimationFrame(animateBackground);
+    }
+
+    resizeCanvas();
+    initParticles();
+    animateBackground();
+    window.addEventListener("resize", () => { resizeCanvas(); initParticles(); }, { passive: true });
+
+    // Scroll reveal para elementos com .fade-up
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = "running";
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".fade-up").forEach((el) => {
+      el.style.animationPlayState = "paused";
+      observer.observe(el);
+    });
+
+    // Smooth scroll para links internos
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (e) => {
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
