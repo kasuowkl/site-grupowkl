@@ -627,20 +627,40 @@
               <p class="aprendi"><strong>Aprendi:</strong> serviço que reinicia sozinho em loop precisa de alarme, não de paciência.</p>
             </article>
 
-            <article class="card card-accent-blue fade-up d2" data-detalhe="plantas">
+            <article class="card card-accent-purple fade-up d2" data-detalhe="prizma">
               <span class="status teste">Em teste</span>
-              <h3><span class="card-icon icon-blue">&#128208;</span> Análise de Plantas</h3>
-              <p>Assistente de engenharia: lê plantas em PDF, DWG, DXF e IFC, levanta o quantitativo de material e confere um formato contra o outro. É copiloto — quem assina é o engenheiro.</p>
+              <h3><span class="card-icon icon-purple">&#127909;</span> Videoconferência (Prizma)</h3>
+              <p>Comunicação interna ligada ao portal: voz, vídeo e tela compartilhada, canais de texto e salas por departamento, no navegador ou num programa para Windows.</p>
               <ul>
-                <li>Quantitativo de aço com a origem de cada número</li>
-                <li>Mesma prancha em formatos diferentes, conferida célula a célula</li>
-                <li>Chat com IA por projeto, com o custo na tela</li>
+                <li>Salas de reunião, salas da equipe e chamada particular</li>
+                <li>Gravação da voz e da tela, com aviso a todos</li>
+                <li>Controle remoto próprio, só com a permissão de quem é ajudado</li>
               </ul>
-              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag purple">IA</span><span class="tag warm">IFC / DXF</span></div>
-              <p class="aprendi"><strong>Aprendi:</strong> o sistema nunca diz &ldquo;correto&rdquo; — diz o que conferiu e onde ficou em dúvida.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag purple">WebRTC</span><span class="tag blue">SQL Server</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> restrição que ninguém pediu é decisão de produto — os casos que eu excluí eram justamente os que a equipe usava.</p>
             </article>
 
-            <article class="card card-accent-warm fade-up" data-detalhe="inventario">
+            <article class="card card-accent-green fade-up" data-detalhe="monitorinfra">
+              <span class="status teste">Em teste</span>
+              <h3><span class="card-icon icon-green">&#128202;</span> Monitor de Infraestrutura de TI</h3>
+              <p>Um painel só para a infraestrutura inteira: links de internet, VPNs, tráfego, serviços e equipamentos de cada local, com alerta no WhatsApp quando algo cai.</p>
+              <ul>
+                <li>Cadastro por equipamento, com descoberta de rede</li>
+                <li>Histórico de quedas e disponibilidade por dia e por hora</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag purple">SNMP</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> monitor que mede a coisa errada fica verde com o link fora — o alerta tem que olhar o que o usuário usa.</p>
+            </article>
+
+            <article class="card card-accent-blue fade-up d1" data-detalhe="homeoffice">
+              <span class="status teste">Em teste</span>
+              <h3><span class="card-icon icon-blue">&#127968;</span> Atendimento Home Office</h3>
+              <p>Registro dos atendimentos feitos a distância: cronômetro, prints colados na hora e relatório para mostrar o trabalho feito.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> sistema ligado ao portal entra com o login do portal — nunca com uma senha própria a mais.</p>
+            </article>
+
+            <article class="card card-accent-warm fade-up d2" data-detalhe="inventario">
               <span class="status teste">Em teste</span>
               <h3><span class="card-icon icon-warm">&#128421;</span> Ferramentas de TI &mdash; Inventário</h3>
               <p>Um coletor roda na máquina e manda a ficha do equipamento para o portal; a descoberta de rede lista o que está ligado e o que não se identifica.</p>
@@ -665,11 +685,11 @@
           </div>
 
           <div class="grid-3">
-            <article class="card card-accent-warm fade-up" data-detalhe="bim">
+            <article class="card card-accent-warm fade-up" data-detalhe="djwkl">
               <span class="status obra">Em construção</span>
-              <h3><span class="card-icon icon-warm">&#127959;</span> Análise de Plantas BIM</h3>
-              <p>Irmão do Análise de Plantas, só para modelos IFC: lê o modelo 3D e organiza o quantitativo por peça, material e família.</p>
-              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag warm">IFC</span></div>
+              <h3><span class="card-icon icon-warm">&#127899;</span> DJ WKL</h3>
+              <p>Sistema de DJ no navegador: dois decks, mixer, efeitos, Automix, gravação do set e controladora MIDI.</p>
+              <div class="stack"><span class="tag blue">Web Audio</span><span class="tag blue">Web MIDI</span><span class="tag blue">Node.js</span></div>
             </article>
 
             <article class="card card-accent-purple fade-up d1" data-detalhe="fluxo">
@@ -699,6 +719,50 @@
               <p>A documentação padrão que uso para a IA desenvolver com consistência — sem inventar tabela, sem duplicar código, sem misturar projetos. Aberta, licença MIT.</p>
               <div class="stack"><span class="tag purple">Documentação</span><span class="tag purple">IA</span></div>
               <a class="card-link" href="https://github.com/kasuowkl/metodo-norte-kit" target="_blank" rel="noopener noreferrer">Ver no GitHub &rarr;</a>
+            </article>
+
+            <article class="card card-accent-blue fade-up d2" data-detalhe="tutoriais">
+              <span class="status obra">Conteúdo</span>
+              <h3><span class="card-icon icon-blue">&#128216;</span> Tutoriais de TI</h3>
+              <p>Tutoriais curtos e objetivos, cada um conferido em laboratório antes de ser escrito: trilhas de pfSense, Nginx e Samba AD.</p>
+              <div class="stack"><span class="tag purple">Documentação</span><span class="tag">pfSense</span><span class="tag">Nginx</span><span class="tag">Samba AD</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PAUSADOS ==================== -->
+      <section class="section" id="pausados">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="section-divider">
+                <span class="icon-circle icon-blue">&#9208;</span>
+                <h2>Pausados</h2>
+              </div>
+              <p>Entregues para continuidade: o código, a documentação e as pendências ficaram prontos para quem seguir.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="card card-accent-blue fade-up" data-detalhe="plantas">
+              <span class="status teste">Pausado</span>
+              <h3><span class="card-icon icon-blue">&#128208;</span> Análise de Plantas</h3>
+              <p>Assistente de engenharia: lê plantas em PDF, DWG, DXF e IFC, levanta o quantitativo de material e confere um formato contra o outro. É copiloto — quem assina é o engenheiro.</p>
+              <ul>
+                <li>Quantitativo de aço com a origem de cada número</li>
+                <li>Mesma prancha em formatos diferentes, conferida célula a célula</li>
+                <li>Chat com IA por projeto, com o custo na tela</li>
+              </ul>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag purple">IA</span><span class="tag warm">IFC / DXF</span></div>
+              <p class="aprendi"><strong>Aprendi:</strong> o sistema nunca diz &ldquo;correto&rdquo; — diz o que conferiu e onde ficou em dúvida.</p>
+            </article>
+
+            <article class="card card-accent-warm fade-up d1" data-detalhe="bim">
+              <span class="status teste">Pausado</span>
+              <h3><span class="card-icon icon-warm">&#127959;</span> Análise de Plantas BIM</h3>
+              <p>Irmão do Análise de Plantas, só para modelos IFC: lê o modelo 3D e organiza o quantitativo por peça, material e família.</p>
+              <div class="stack"><span class="tag blue">Node.js</span><span class="tag blue">SQL Server</span><span class="tag warm">IFC</span></div>
             </article>
           </div>
         </div>
@@ -891,7 +955,7 @@
       });
     });
   </script>
-  <script src="detalhes-desenvolvimento.js?v=20260927b"></script>
+  <script src="detalhes-desenvolvimento.js?v=20261019a"></script>
   <script src="detalhes.js?v=20260927b"></script>
 </body>
 </html>

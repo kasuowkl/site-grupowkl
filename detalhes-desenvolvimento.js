@@ -97,7 +97,7 @@ window.DETALHES = {
   },
 
   plantas: {
-    titulo: "Análise de Plantas", icone: "📐", status: "Em teste", statusClasse: "teste",
+    titulo: "Análise de Plantas", icone: "📐", status: "Pausado", statusClasse: "teste",
     resumo: "Assistente de engenharia que lê plantas e levanta o quantitativo de material. É copiloto, não calculista: mostra de onde veio cada número e onde ficou em dúvida — quem confere e assina é o engenheiro.",
     secoes: [
       { titulo: "O que lê", itens: [
@@ -134,8 +134,94 @@ window.DETALHES = {
     stack: ["PowerShell", "Node.js", "SQL Server"]
   },
 
+  prizma: {
+    titulo: "Videoconferência (Prizma)", icone: "🎥", status: "Em teste", statusClasse: "teste",
+    resumo: "Comunicação interna ligada ao portal: voz, vídeo, tela compartilhada e canais de texto num lugar só — no navegador ou num programa para Windows que avisa quando chega mensagem ou chamada.",
+    secoes: [
+      { titulo: "O que tem dentro", itens: [
+        "Canais de texto com menção, prints colados e mensagens fixadas",
+        "Salas de voz da equipe, salas de reunião e chamada particular",
+        "Uma pasta por departamento: cada pessoa entra na do seu setor",
+        "Tela compartilhada com o som, em tela cheia ou em outra janela",
+        "Gravação da voz e da tela, com aviso a todos da sala",
+        "Status (café, almoço, ausente) que fecha o microfone sozinho"
+      ] },
+      { titulo: "Atendimento remoto", itens: [
+        "Convite por link para quem é de fora, inclusive pelo celular",
+        "Controle remoto próprio: só funciona depois que a pessoa ajudada permite",
+        "Ligado ao registro de atendimentos e à agenda de tarefas do portal"
+      ] },
+      { titulo: "O que aprendi", texto: "Restrição que ninguém pediu é decisão de produto, não detalhe técnico — os casos que eu excluí por conta própria eram justamente os que a equipe usava." }
+    ],
+    stack: ["Node.js", "Express", "WebRTC", "SQL Server", "Electron"]
+  },
+
+  monitorinfra: {
+    titulo: "Monitor de Infraestrutura de TI", icone: "📊", status: "Em teste", statusClasse: "teste",
+    resumo: "Um painel só para a infraestrutura inteira de vários locais: internet, VPNs, tráfego, serviços e equipamentos — com alerta no WhatsApp quando algo cai e quando volta.",
+    secoes: [
+      { titulo: "O que faz", itens: [
+        "Links de internet de cada firewall, com o tráfego ao vivo",
+        "VPNs entre a matriz e as filiais",
+        "Servidores, switches, pontos de acesso Wi-Fi e serviços, por local",
+        "Cadastro por equipamento, com descoberta de rede",
+        "Histórico de quedas e disponibilidade por dia e por hora, com exportação",
+        "Alertas no WhatsApp para pessoas e grupos escolhidos pela tela"
+      ] },
+      { titulo: "O que aprendi", texto: "Monitor que mede a coisa errada fica verde com o link fora: o alerta tem que olhar o mesmo endereço que o usuário usa para sair." }
+    ],
+    stack: ["Node.js", "Express", "SQL Server", "SNMP", "SSH"]
+  },
+
+  homeoffice: {
+    titulo: "Atendimento Home Office", icone: "🏠", status: "Em teste", statusClasse: "teste",
+    resumo: "Registro dos atendimentos de TI feitos a distância, com o tempo de cada um e as provas do que foi feito — para justificar a carga horária com números.",
+    secoes: [
+      { titulo: "O que faz", itens: [
+        "Cronômetro por atendimento, com pausa",
+        "Prints colados direto na tela (Ctrl+V)",
+        "O que foi pedido, o que foi feito e se resolveu",
+        "Relatório por período em planilha e em PDF",
+        "Entrada com o login do portal, liberada por grupo"
+      ] },
+      { titulo: "O que aprendi", texto: "Sistema ligado ao portal entra com o login do portal — nunca com uma senha própria a mais." }
+    ],
+    stack: ["Node.js", "Express", "SQL Server"]
+  },
+
+  djwkl: {
+    titulo: "DJ WKL", icone: "🎛️", status: "Em construção", statusClasse: "obra",
+    resumo: "Sistema de DJ que roda no navegador: dois decks, mixer, efeitos e gravação do set, com a biblioteca de músicas do próprio computador.",
+    secoes: [
+      { titulo: "O que já faz", itens: [
+        "Dois decks com pitch, SYNC, CUE e barra da música clicável",
+        "Mixer com equalizador, filtro e efeitos (eco, reverb, flanger e outros)",
+        "Fila de músicas e Automix com transições",
+        "Samples e pads",
+        "Gravação do set em WAV, MP3 ou WebM",
+        "Controladora MIDI e atalhos de teclado"
+      ] },
+      { titulo: "O que aprendi", texto: "Som se prova medindo o sinal, não só ouvindo: cada efeito foi conferido pelo que mudou no áudio." }
+    ],
+    stack: ["Web Audio", "Web MIDI", "Node.js", "SQL Server"]
+  },
+
+  tutoriais: {
+    titulo: "Tutoriais de TI", icone: "📘", status: "Conteúdo", statusClasse: "obra",
+    resumo: "Tutoriais curtos e objetivos de infraestrutura, cada um montado e conferido em laboratório antes de ser escrito.",
+    secoes: [
+      { titulo: "Trilhas", itens: [
+        "pfSense: instalação, multi-WAN, VLANs, VPN, backup e dicas avançadas",
+        "Nginx: publicação, HTTPS, balanceamento, segurança e dicas",
+        "Samba AD: domínio, usuários, DNS, estações no domínio e backup"
+      ] },
+      { titulo: "Como é feito", texto: "Sempre na mesma ordem: o que é, o que pode ser configurado, como fazer, como confirmar e os erros comuns." }
+    ],
+    stack: ["Documentação", "pfSense", "Nginx", "Samba AD"]
+  },
+
   bim: {
-    titulo: "Análise de Plantas BIM", icone: "🏗️", status: "Em construção", statusClasse: "obra",
+    titulo: "Análise de Plantas BIM", icone: "🏗️", status: "Pausado", statusClasse: "teste",
     resumo: "Irmão do Análise de Plantas, dedicado a modelos IFC (BIM): em vez de ler desenho, lê o modelo 3D da obra.",
     secoes: [
       { titulo: "O que faz", itens: [

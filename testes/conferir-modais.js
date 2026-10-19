@@ -33,7 +33,7 @@ const ok = (cond, msg) => { if (!cond) falhas++; console.log((cond ? 'OK   ' : '
       await p.goto(url('desenvolvimento.html'));
       await p.evaluate(() => document.querySelectorAll('.fade-up').forEach((el) => { el.style.animation = 'none'; el.style.opacity = 1; }));
       const ids = await p.$$eval('.card[data-detalhe]', (cs) => cs.map((c) => c.dataset.detalhe));
-      ok(ids.length === 13, `${nome} ${largura}px 13 cartões com detalhe (achou ${ids.length})`);
+      ok(ids.length === 18, `${nome} ${largura}px 18 cartões com detalhe (achou ${ids.length})`);
       let abriram = 0;
       for (const id of ids) {
         const card = p.locator(`.card[data-detalhe="${id}"]`);
@@ -51,7 +51,7 @@ const ok = (cond, msg) => { if (!cond) falhas++; console.log((cond ? 'OK   ' : '
         await p.keyboard.press('Escape');
         ok(!(await p.evaluate(() => document.querySelector('dialog.detalhe').open)), `${nome} ${largura}px ${id}: Esc fecha`);
       }
-      ok(abriram === 13, `${nome} ${largura}px ${abriram}/13 modais abriram com título, cabendo na tela e com WhatsApp`);
+      ok(abriram === 18, `${nome} ${largura}px ${abriram}/18 modais abriram com título, cabendo na tela e com WhatsApp`);
 
       // Fecha pelo X e pelo fundo; teclado abre; link do cartão não abre o modal.
       const c = p.locator('.card[data-detalhe="portal"]');
